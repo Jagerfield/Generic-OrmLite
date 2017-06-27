@@ -14,7 +14,7 @@ public class AppDaoConfig extends DaoConfiguration
 {
     private Set<Class> tableModels;
     private final String DATABASE_NAME = "OrmLiteTest.db";
-    private final int DATABASE_VERSION = 11;
+    private final int DATABASE_VERSION = 12;
     private Context context;
 
     public AppDaoConfig(Context context)
@@ -56,6 +56,19 @@ public class AppDaoConfig extends DaoConfiguration
     public void updateFromPreviousVersion(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion)
     {
         Log.i("TAG", "Upgrading DB from version 2");
+
+        if (oldVersion==11)
+        {
+            try
+            {
+                int result1 = super.getDaoHelper(context).createTable(Building.class);
+                Log.i("TAG", "Added table 'buildings");
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
 
     }
 
@@ -119,3 +132,25 @@ public class AppDaoConfig extends DaoConfiguration
 
 
  */
+
+
+//        String [] array = context.databaseList();
+//        List<String> list = new ArrayList<String>(Arrays.asList(array));
+//        ListIterator<String> iterator = list.listIterator();
+//
+//        try
+//        {
+//            while(iterator.hasNext())
+//            {
+//                String entry = iterator.next();
+//                if (!entry.endsWith(".db"))
+//                {
+//                    iterator.remove();
+//                }
+//            }
+//        }
+//        catch (Exception e)
+//        {
+//            e.printStackTrace();
+//            return false;
+//        }

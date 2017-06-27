@@ -10,12 +10,12 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import java.util.Set;
 
-
 public class DaoHelper<T> extends OrmLiteSqliteOpenHelper
 {
     private static DaoHelper instance;
     private static DaoConfiguration daoConfiguration;
     private static Context context;
+    private SQLiteDatabase db;
 
     private DaoHelper(Context context)
     {
@@ -46,12 +46,17 @@ public class DaoHelper<T> extends OrmLiteSqliteOpenHelper
         DaoHelper daoHelper = DaoHelper.getInstance(application.getApplicationContext());
     }
 
+    public synchronized SQLiteDatabase getDb()
+    {
+        return db;
+    }
+
     @Override
     public void onConfigure(SQLiteDatabase db)
     {
         super.onConfigure(db);
         db.getVersion();
-        String str = "";
+        this.db = db;
     }
 
     @Override
@@ -67,29 +72,8 @@ public class DaoHelper<T> extends OrmLiteSqliteOpenHelper
         }
     }
 
-    public boolean deleteDatabase(String dbName)  throws Exception
+    public synchronized boolean deleteDatabase(String dbName)  throws Exception
     {
-//        String [] array = context.databaseList();
-//        List<String> list = new ArrayList<String>(Arrays.asList(array));
-//        ListIterator<String> iterator = list.listIterator();
-//
-//        try
-//        {
-//            while(iterator.hasNext())
-//            {
-//                String entry = iterator.next();
-//                if (!entry.endsWith(".db"))
-//                {
-//                    iterator.remove();
-//                }
-//            }
-//        }
-//        catch (Exception e)
-//        {
-//            e.printStackTrace();
-//            return false;
-//        }
-
         if (dbName == null || dbName.isEmpty())
         {
             throw new IllegalArgumentException("dbName is null or empty");
@@ -98,7 +82,7 @@ public class DaoHelper<T> extends OrmLiteSqliteOpenHelper
         return context.deleteDatabase(dbName);
     }
 
-    public void createTables(Set<Class> S) throws Exception
+    public synchronized void createTables(Set<Class> S) throws Exception
     {
         for (Class a: S)
         {
@@ -106,23 +90,23 @@ public class DaoHelper<T> extends OrmLiteSqliteOpenHelper
         }
     }
 
-    public boolean isTableExist(Class T) throws Exception
+    public synchronized boolean isTableExist(Class T) throws Exception
     {
         Dao dao = getDao(T);
         return dao.isTableExists();
     }
 
-    public int createTable(Class T) throws Exception
+    public synchronized int createTable(Class T) throws Exception
     {
         return TableUtils.createTableIfNotExists(getConnectionSource(), T);
     }
 
-    public int dropTable(Class T, boolean ignoreError) throws Exception
+    public synchronized int dropTable(Class T, boolean ignoreError) throws Exception
     {
         return TableUtils.dropTable(getConnectionSource(), T, ignoreError);
     }
 
-    public int clearData(Context context, Class T) throws Exception
+    public synchronized int clearData(Context context, Class T) throws Exception
     {
         return TableUtils.clearTable(getConnectionSource(), T);
     }

@@ -90,15 +90,15 @@ public class MainActivity extends AppCompatActivity
                     return;
                 }
 
-                try
-                {
-                    DaoHelper.getInstance(MainActivity.this).clearData(MainActivity.this, Person.class);
-                    DaoHelper.getInstance(MainActivity.this).clearData(MainActivity.this, Building.class);
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
+//                try
+//                {
+//                    DaoHelper.getInstance(MainActivity.this).clearData(MainActivity.this, Person.class);
+//                    DaoHelper.getInstance(MainActivity.this).clearData(MainActivity.this, Building.class);
+//                }
+//                catch (Exception e)
+//                {
+//                    e.printStackTrace();
+//                }
 
 //                TextView lblName = (TextView) findViewById(R.id.lblName);
 //                TextView lblAge = (TextView) findViewById(R.id.lblAge);
