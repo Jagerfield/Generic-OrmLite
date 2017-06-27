@@ -7,21 +7,42 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <include
-        layout="@layout/section_one"
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/section_one"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="0dp"
+        android:background="@color/purple_light"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteY="64dp"
+        app:layout_constraintVertical_weight="1"
+        app:layout_constraintBottom_toTopOf="@+id/section_two" />
 
-    <include
-        layout="@layout/section_two"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/section_two"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/menublue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_weight="2"
+        app:layout_constraintTop_toBottomOf="@+id/section_one" />
+
+    </android.support.constraint.ConstraintLayout>
 
 
-        />
 
+<!--<include-->
+<!--layout="@layout/section_one"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="50dp" />-->
 
-</android.support.constraint.ConstraintLayout>
+<!--<include-->
+<!--layout="@layout/section_two"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="50dp"-->
+
 
 
 

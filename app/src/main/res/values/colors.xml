@@ -5,6 +5,16 @@
     <color name="colorAccent">#FF4081</color>
     <color name="purple_light">#ffd2cbeb</color>
     <color name="menublue">#FF66b2ff</color>
-
+    <color name="folder_yellow">#ffFFA532</color>
+    <color name="honeydew">#FFF0FFF0</color>
+    <color name="greylight">#FFf0f0f0</color>
+    <color name="greytext">#FF666666</color>
+    <color name="greymedium">#FFa0a0a0</color>
+    <color name="greymediumdark">#ff929292</color>
+    <color name="green">#FF88D8B0</color>
+    <color name="red_microsoftdoc">#FFDC3C00</color>
+    <color name="red_email">#FFe95d4f</color>
+    <color name="blue_link">#ff0645AD</color>
+    <color name="trashcan_green">#ffA5EA7A</color>
 
 </resources>
