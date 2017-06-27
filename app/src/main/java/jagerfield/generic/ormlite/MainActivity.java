@@ -7,6 +7,8 @@ import android.widget.Button;
 
 import java.util.List;
 
+import jagerfield.generic.ormlite.data_generators.BuildingDataGen;
+import jagerfield.generic.ormlite.data_generators.PersonDataGen;
 import jagerfield.generic.ormlite.models.Building;
 import jagerfield.generic.ormlite.models.Person;
 import jagerfield.generic.ormlitelib.DaoHelper;
@@ -32,6 +34,17 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+
+                try
+                {
+                    DaoHelper.getInstance(MainActivity.this).clearData(MainActivity.this, Person.class);
+                    DaoHelper.getInstance(MainActivity.this).clearData(MainActivity.this, Building.class);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+
                 activateThreads();
 //                txtName = (EditText) findViewById(R.id.txtName);
 //                txtAge = (EditText) findViewById(R.id.txtAge);
@@ -80,6 +93,7 @@ public class MainActivity extends AppCompatActivity
                 try
                 {
                     DaoHelper.getInstance(MainActivity.this).clearData(MainActivity.this, Person.class);
+                    DaoHelper.getInstance(MainActivity.this).clearData(MainActivity.this, Building.class);
                 }
                 catch (Exception e)
                 {
@@ -131,107 +145,112 @@ public class MainActivity extends AppCompatActivity
 
     private void activateThreads()
     {
-        new Thread(new Runnable() {
-            @Override
-            public void run()
-            {
-                int counter = 0;
-                while (counter<amount)
-                {
-                    Person person = new Person();
-                    person.setName("Luke-" + String.valueOf(counter));
-                    person.setAge(30+counter);
+        PersonDataGen personDataGen1 = new PersonDataGen("Luke", amount, MainActivity.this);
+        PersonDataGen personDataGen2 = new PersonDataGen("Peter", amount, MainActivity.this);
+        BuildingDataGen buildingDataGen1 = new BuildingDataGen("Building A", amount, this);
+        BuildingDataGen buildingDataGen2 = new BuildingDataGen("Building B", amount, this);
 
-                    try
-                    {
-                        entityCrud.add(person);
-                    }
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run()
+//            {
+//                int counter = 0;
+//                while (counter<amount)
+//                {
+//                    Person person = new Person();
+//                    person.setName("Luke-" + String.valueOf(counter));
+//                    person.setAge(30+counter);
+//
+//                    try
+//                    {
+//                        entityCrud.add(person);
+//                    }
+//                    catch (Exception e)
+//                    {
+//                        e.printStackTrace();
+//                    }
+//
+//                    counter++;
+//                }
+//
+//            }
+//        }).start();
 
-                    counter++;
-                }
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run()
+//            {
+//                int counter = 0;
+//                while (counter<amount)
+//                {
+//                    Person person = new Person();
+//                    person.setName("Peter-" + String.valueOf(counter));
+//                    person.setAge(40+counter);
+//
+//                    try
+//                    {
+//                        entityCrud.add(person);
+//                    }
+//                    catch (Exception e)
+//                    {
+//                        e.printStackTrace();
+//                    }
+//
+//                    counter++;
+//                }
+//
+//            }
+//        }).start();
 
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run()
+//            {
+//                int counter = 0;
+//                while (counter<amount)
+//                {
+//                    Building building = new Building();
+//                    building.setName("Building A -" + String.valueOf(counter));
+//
+//                    try
+//                    {
+//                        entityCrud.add(building);
+//                    }
+//                    catch (Exception e)
+//                    {
+//                        e.printStackTrace();
+//                    }
+//
+//                    counter++;
+//                }
+//
+//            }
+//        }).start();
 
-        new Thread(new Runnable() {
-            @Override
-            public void run()
-            {
-                int counter = 0;
-                while (counter<amount)
-                {
-                    Person person = new Person();
-                    person.setName("Peter-" + String.valueOf(counter));
-                    person.setAge(40+counter);
-
-                    try
-                    {
-                        entityCrud.add(person);
-                    }
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
-
-                    counter++;
-                }
-
-            }
-        }).start();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run()
-            {
-                int counter = 0;
-                while (counter<amount)
-                {
-                    Building building = new Building();
-                    building.setName("Building A -" + String.valueOf(counter));
-
-                    try
-                    {
-                        entityCrud.add(building);
-                    }
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
-
-                    counter++;
-                }
-
-            }
-        }).start();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run()
-            {
-                int counter = 0;
-                while (counter<amount)
-                {
-                    Building building = new Building();
-                    building.setName("Building B -" + String.valueOf(counter));
-
-                    try
-                    {
-                        entityCrud.add(building);
-                    }
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
-
-                    counter++;
-                }
-
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run()
+//            {
+//                int counter = 0;
+//                while (counter<amount)
+//                {
+//                    Building building = new Building();
+//                    building.setName("Building B -" + String.valueOf(counter));
+//
+//                    try
+//                    {
+//                        entityCrud.add(building);
+//                    }
+//                    catch (Exception e)
+//                    {
+//                        e.printStackTrace();
+//                    }
+//
+//                    counter++;
+//                }
+//
+//            }
+//        }).start();
     }
 
     private int dropBuildingTable(Class T) throws Exception

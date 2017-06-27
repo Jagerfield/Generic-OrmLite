@@ -34,6 +34,14 @@ public class Building
         this.id = this.id;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public interface IColumns
     {
         String NAME_FIELD = "name";

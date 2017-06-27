@@ -60,3 +60,62 @@ public class AppDaoConfig extends DaoConfiguration
     }
 
 }
+
+
+
+/*
+
+        I added zip and country columns to the buildings table but the Tableinfo can't detct them. You need to remove the table now to get things to work.
+        try
+        {
+            if (DaoHelper.getInstance(context).isTableExist(Building.class))
+            {
+                TableInfo tableInfo = ((BaseDaoImpl) super.getDaoEntity(context, Building.class)).getTableInfo();
+
+                if(tableInfo.hasColumnName("zip"))
+                {
+                    String str  = "";
+                }
+                else
+                {
+                    int result2 = super.getDaoEntity(context, Building.class).executeRaw("ALTER TABLE `buildings` ADD COLUMN zip STRING;");
+
+                    tableInfo = ((BaseDaoImpl) super.getDaoEntity(context, Building.class)).getTableInfo();
+
+                    if(tableInfo.hasColumnName("zip"))
+                    {
+                        String str  = "";
+                    }
+                }
+
+                String str  = "";
+
+//                GenericRawResults<String[]> results =
+//                        dao.queryRaw("SELECT name FROM sqlite_master WHERE type = 'table'");
+//                for (String[] result : results) {
+//                    System.out.println("One table is: " + result[0]);
+//                }
+            }
+            else
+            {
+                int result1 = super.getDaoHelper(context).createTable(Building.class);
+                int result2 = super.getDaoEntity(context, Building.class).executeRaw("ALTER TABLE `buildings` ADD COLUMN country STRING;");
+
+                TableInfo tableInfo = ((BaseDaoImpl) super.getDaoEntity(context, Building.class)).getTableInfo();
+
+                if(tableInfo.hasColumnName("country"))
+                {
+                    String str  = "";
+                }
+
+                String str = "";
+            }
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
+ */

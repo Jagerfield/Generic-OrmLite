@@ -4,17 +4,19 @@ import android.content.Context;
 import jagerfield.generic.ormlite.models.Person;
 import jagerfield.generic.ormlitelib.DaoCrud;
 
-public class PersonData
+public class PersonDataGen
 {
     public final String name;
     public final int amount;
     private Context context;
 
-    public PersonData(String name, int amount, Context context)
+    public PersonDataGen(String name, int amount, Context context)
     {
-        this.name = name;
+        this.name = name + "-";
         this.amount = amount;
         this.context = context;
+
+        generateData();
     }
 
     public void generateData()
