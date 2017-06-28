@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    >
+
+    <!--android:stretchColumns="1"-->
+    <!--android:layout_column="1"-->
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+
+        >
+
+    <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DB name: "
+                android:gravity="right"
+                android:textSize="7pt"
+                android:layout_marginLeft="2.5dp"
+                android:layout_marginLRight="2.5dp"
+                android:textColor="@color/greytext"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_marginLeft="2.5dp"
+                android:layout_marginLRight="2.5dp"/>
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="42dp"
+                android:id="@+id/createDatabaseBt"
+                android:text="Create"
+                android:layout_marginLeft="3dp"
+                android:layout_marginLRight="4dp"
+                android:textSize="13dp"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="42dp"
+                android:id="@+id/deleteDatabaseBt"
+                android:text="Delete"
+                android:layout_marginLeft="4dp"
+                android:layout_marginLRight="8dp"
+                android:textSize="13dp"
+                android:textAllCaps="false"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DB version: "
+                android:gravity="right"
+                android:textSize="7pt"
+                android:layout_marginLeft="2.5dp"
+                android:layout_marginLRight="2.5dp"
+                android:textColor="@color/greytext"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_marginLeft="2.5dp"
+                android:layout_marginLRight="2.5dp"/>
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="42dp"
+                android:id="@+id/updateDbVersionBt"
+                android:text="Update"
+                android:layout_marginLeft="3dp"
+                android:layout_marginLRight="4dp"
+                android:textSize="13dp"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="42dp"
+                android:id="@+id/infoDbVersionBt"
+                android:text="Info"
+                android:layout_marginLeft="3dp"
+                android:layout_marginLRight="4dp"
+                android:textSize="13dp"
+                android:textAllCaps="false"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="'buidings' table: "
+                android:gravity="right"
+                android:textSize="7pt"
+                android:layout_marginLeft="2.5dp"
+                android:layout_marginLRight="2.5dp"
+                android:textColor="@color/greytext"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_marginLeft="2.5dp"
+                android:layout_marginLRight="2.5dp"/>
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="42dp"
+                android:id="@+id/createBuidlingsTableBt"
+                android:text="Create"
+                android:layout_marginLeft="3dp"
+                android:layout_marginLRight="4dp"
+                android:textSize="13dp"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="42dp"
+                android:id="@+id/deleteBuidlingsTableBt"
+                android:text="Delete"
+                android:layout_marginLeft="4dp"
+                android:layout_marginLRight="8dp"
+                android:textSize="13dp"
+                android:textAllCaps="false"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="'buidings' entries: "
+                android:gravity="right"
+                android:textSize="7pt"
+                android:layout_marginLeft="2.5dp"
+                android:textColor="@color/greytext"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_marginLeft="2.5dp"
+                android:layout_marginLRight="2.5dp"/>
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="42dp"
+                android:id="@+id/loadBuidlingsTableBt"
+                android:text="Create"
+                android:layout_marginLeft="3dp"
+                android:layout_marginLRight="4dp"
+                android:textSize="13dp"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="42dp"
+                android:id="@+id/clearBuidlingsTableBt"
+                android:text="Clear"
+                android:layout_marginLeft="4dp"
+                android:layout_marginLRight="8dp"
+                android:textSize="13dp"
+                android:textAllCaps="false"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="'persons' entries: "
+                android:gravity="right"
+                android:textSize="7pt"
+                android:layout_marginLeft="2.5dp"
+                android:textColor="@color/greytext"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_marginLeft="2.5dp"
+                android:layout_marginLRight="2.5dp"/>
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="42dp"
+                android:id="@+id/loadPersonsTableBt"
+                android:text="Create"
+                android:layout_marginLeft="3dp"
+                android:layout_marginLRight="4dp"
+                android:textSize="13dp"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="42dp"
+                android:id="@+id/clearPersonsTableBt"
+                android:text="Clear"
+                android:layout_marginLeft="4dp"
+                android:layout_marginLRight="8dp"
+                android:textSize="13dp"
+                android:textAllCaps="false"/>
+
+        </TableRow>
+
+
+
+        <!--<View-->
+            <!--android:layout_height="2dip"-->
+            <!--android:background="#FF909090" />-->
+
+    </TableLayout>
+
+
+</RelativeLayout>

@@ -1,47 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:weightSum="2"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    >
 
-
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:id="@+id/section_one"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="0.9"
         android:background="@color/purple_light"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteY="64dp"
-        app:layout_constraintVertical_weight="1"
-        app:layout_constraintBottom_toTopOf="@+id/section_two" />
+        android:orientation="vertical"
+        android:gravity="center"
+        >
 
-    <android.support.constraint.ConstraintLayout
+        <include
+            layout="@layout/dashboard"/>
+            <!--layout="@layout/section_one"/>-->
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/section_two"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/menublue"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_weight="2"
-        app:layout_constraintTop_toBottomOf="@+id/section_one" />
+        android:layout_weight="1.1"
+        android:orientation="vertical"
+        android:background="@color/greylight"
+        >
 
-    </android.support.constraint.ConstraintLayout>
+        <!--<include-->
+            <!--layout="@layout/section_one"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+
+            <!--/>-->
+
+    </LinearLayout>
 
 
+</LinearLayout>
 
-<!--<include-->
-<!--layout="@layout/section_one"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="50dp" />-->
 
-<!--<include-->
-<!--layout="@layout/section_two"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="50dp"-->
+    <!--<include-->
+    <!--layout="@layout/section_one"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="50dp" />-->
+
+    <!--<include-->
+    <!--layout="@layout/section_two"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="50dp"-->
 
 
 

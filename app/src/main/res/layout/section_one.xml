@@ -3,48 +3,124 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/folder_yellow"
     tools:context=".MainActivity"
+
     >
 
     <!--tools:showIn="@layout/activity_main"-->
 
 
-    <Button
-        android:id="@+id/btGenerate"
+    <!--<Button-->
+        <!--android:id="@+id/btGenerate"-->
+        <!--android:layout_width="126dp"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:text="Generate"-->
+        <!--tools:layout_constraintLeft_creator="1"-->
+        <!--tools:layout_constraintTop_creator="1"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--android:layout_marginEnd="136dp"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--android:layout_marginTop="60dp" />-->
 
-        android:layout_width="126dp"
-        android:layout_height="48dp"
-        android:text="Generate"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintTop_creator="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="48dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="172dp" />
+    <!--<TextView-->
+        <!--android:id="@+id/dbNameTv"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Database name:"-->
+        <!--tools:layout_editor_absoluteY="273dp"-->
+        <!--tools:layout_editor_absoluteX="128dp" />-->
 
-    <TextView
-        android:id="@+id/dbNameTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Database name:"
-        tools:layout_editor_absoluteY="273dp"
-        tools:layout_editor_absoluteX="128dp" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/firstLayout"
+        android:layout_width="0dp"
         android:layout_height="112dp"
+        android:background="@color/green"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@+id/secondLayout"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="24dp">
+        android:weightSum="6">
+
+        <!--<TextView-->
+        <!--android:id="@+id/dbNameTv"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Database name: "-->
+        <!--android:layout_gravity="left"-->
+        <!--/>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
 
 
 
+        </LinearLayout>
 
-    </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/secondLayout"
+        android:layout_width="0dp"
+        android:layout_height="112dp"
+        android:background="@color/menublue"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@+id/thirdLayout"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/firstLayout"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--<EditText-->
+        <!--android:id="@+id/editDbName"-->
+        <!--android:layout_width="20dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:ems="10"-->
+        <!--android:inputType="text"-->
+        <!--android:text="DB name"-->
+        <!--android:layout_gravity="left"-->
+        <!--/>-->
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/thirdLayout"
+        android:layout_width="0dp"
+        android:layout_height="112dp"
+        android:background="@color/green"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@+id/fourthLayout"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/secondLayout"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/fourthLayout"
+        android:layout_width="0dp"
+        android:layout_height="112dp"
+        android:background="@color/menublue"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/thirdLayout"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+    </LinearLayout>
+
+
 
     <!--<Button-->
         <!--android:id="@+id/btnList"-->
