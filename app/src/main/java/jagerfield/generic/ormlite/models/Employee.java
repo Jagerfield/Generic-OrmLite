@@ -4,7 +4,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import java.io.Serializable;
 
-@DatabaseTable(tableName = "persons")
+@DatabaseTable(tableName = "employees")
 public class Employee implements Serializable
 {
     private static final long serialVersionUID = 1L;
@@ -17,6 +17,12 @@ public class Employee implements Serializable
 
     @DatabaseField(columnName = IColumns.BUILDING_FIELD, canBeNull = false)
     private Building building;
+
+    public Employee(Person person, Building building)
+    {
+        this.person = person;
+        this.building = building;
+    }
 
     public interface IColumns
     {

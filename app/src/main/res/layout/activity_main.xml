@@ -9,43 +9,45 @@
     tools:context=".MainActivity"
     >
 
-    <LinearLayout
-        android:id="@+id/section_one"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.9"
-        android:background="@color/purple_light"
-        android:orientation="vertical"
-        android:gravity="center"
-        >
-
-        <include
-            layout="@layout/dashboard"/>
-            <!--layout="@layout/section_one"/>-->
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/section_two"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.1"
-        android:orientation="vertical"
-        android:background="@color/greylight"
-        >
-
-        <!--<include-->
-            <!--layout="@layout/section_one"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-
-            <!--/>-->
-
-    </LinearLayout>
-
+    <include
+        layout="@layout/dashboard"/>
 
 </LinearLayout>
 
+
+<!--<LinearLayout-->
+<!--android:id="@+id/section_one"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="0dp"-->
+<!--android:layout_weight="0.9"-->
+<!--android:background="@color/purple_light"-->
+<!--android:orientation="vertical"-->
+<!--android:gravity="center"-->
+    <!--&gt;-->
+
+<!--<include-->
+    <!--layout="@layout/dashboard"/>-->
+<!--&lt;!&ndash;layout="@layout/section_one"/>&ndash;&gt;-->
+
+<!--</LinearLayout>-->
+
+<!--<LinearLayout-->
+<!--android:id="@+id/section_two"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="0dp"-->
+<!--android:layout_weight="1.1"-->
+<!--android:orientation="vertical"-->
+<!--android:background="@color/greylight"-->
+    <!--&gt;-->
+
+<!--&lt;!&ndash;<include&ndash;&gt;-->
+<!--&lt;!&ndash;layout="@layout/section_one"&ndash;&gt;-->
+<!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+
+<!--&lt;!&ndash;/>&ndash;&gt;-->
+
+<!--</LinearLayout>-->
 
     <!--<include-->
     <!--layout="@layout/section_one"-->

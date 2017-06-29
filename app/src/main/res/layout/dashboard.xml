@@ -4,26 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp"
+    android:padding="8dp"
     >
 
     <!--android:stretchColumns="1"-->
     <!--android:layout_column="1"-->
 
     <TableLayout
+        android:id="@+id/tableLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_centerHorizontal="true"
-
-        >
+        android:layout_marginBottom="8dp">
 
     <TableRow>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="DB name :"
+                android:text="Database :"
                 android:gravity="right"
                 android:textSize="6.2pt"
                 android:layout_marginLeft="2.5dp"
@@ -226,6 +226,49 @@
 
         </TableRow>
 
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="'employees' entries :"
+                android:gravity="right"
+                android:textSize="6.2pt"
+                android:layout_marginLeft="2.5dp"
+                android:textColor="@color/greytext"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_marginLeft="2.5dp"
+                android:layout_marginRight="2.5dp"/>
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="38dp"
+                android:id="@+id/loadEmployeesTableBt"
+                android:text="Load"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="4dp"
+                android:textSize="12dp"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="38dp"
+                android:id="@+id/clearEmployeesTableBt"
+                android:text="Clear"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="8dp"
+                android:textSize="12dp"
+                android:textAllCaps="false"/>
+
+        </TableRow>
+
+
         <TableRow>
 
             <TextView
@@ -270,13 +313,143 @@
 
         </TableRow>
 
-
-
-        <!--<View-->
-            <!--android:layout_height="2dip"-->
-            <!--android:background="#FF909090" />-->
-
     </TableLayout>
+
+    <LinearLayout
+        android:id="@+id/horizontalLine1"
+        android:layout_width ="match_parent"
+        android:layout_height ="1dip"
+        android:background="#FF909090"
+        android:orientation="horizontal"
+        android:layout_below="@+id/tableLayout"/>
+
+    <LinearLayout
+        android:id="@+id/headers"
+        android:layout_width ="match_parent"
+        android:layout_height ="28dip"
+        android:background="@color/green"
+        android:orientation="horizontal"
+        android:layout_below="@id/horizontalLine1"
+        android:weightSum="3"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="1dip"
+            android:background="#FF909090"
+            android:orientation="vertical"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="'persons'"
+            android:textStyle="bold"
+            android:gravity="center"
+            />
+
+        <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="1dip"
+            android:background="#FF909090"
+            android:orientation="vertical"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="'buildings'"
+            android:textStyle="bold"
+            android:gravity="center"
+            />
+
+        <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="1dip"
+            android:background="#FF909090"
+            android:orientation="vertical"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="'pemployees'"
+            android:textStyle="bold"
+            android:gravity="center"
+            />
+
+        <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="1dip"
+            android:background="#FF909090"
+            android:orientation="vertical"/>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/horizontalLine2"
+        android:layout_width ="match_parent"
+        android:layout_height ="1dip"
+        android:background="#FF909090"
+        android:orientation="horizontal"
+        android:layout_below="@id/headers"/>
+
+    <LinearLayout
+        android:id="@+id/recyclers"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/horizontalLine2"
+        android:weightSum="3"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/personRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="8dp"
+            />
+
+        <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="1dip"
+        android:background="#FF909090"
+        android:orientation="vertical"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/buildingRecyclerView"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
+           />
+
+        <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="1dip"
+            android:background="#FF909090"
+            android:orientation="vertical"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/employeeRecyclerView"
+            android:layout_weight="1"
+            android:layout_marginLeft="8dp"
+           />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width ="match_parent"
+        android:layout_height ="1dip"
+        android:background="#FF909090"
+        android:orientation="horizontal"
+        android:layout_below="@id/recyclers"/>
 
 
 </RelativeLayout>

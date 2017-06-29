@@ -8,8 +8,10 @@ import android.widget.Button;
 import java.util.List;
 
 import jagerfield.generic.ormlite.data_generators.BuildingDataGen;
+import jagerfield.generic.ormlite.data_generators.EmployeeDataGen;
 import jagerfield.generic.ormlite.data_generators.PersonDataGen;
 import jagerfield.generic.ormlite.models.Building;
+import jagerfield.generic.ormlite.models.Employee;
 import jagerfield.generic.ormlite.models.Person;
 import jagerfield.generic.ormlitelib.DaoHelper;
 import jagerfield.generic.ormlitelib.DaoCrud;
@@ -149,6 +151,8 @@ public class MainActivity extends AppCompatActivity
         PersonDataGen personDataGen2 = new PersonDataGen("Peter", amount, MainActivity.this);
         BuildingDataGen buildingDataGen1 = new BuildingDataGen("Building A", amount, this);
         BuildingDataGen buildingDataGen2 = new BuildingDataGen("Building B", amount, this);
+
+        EmployeeDataGen employeeDataGen = new EmployeeDataGen(amount, this);
 
 //        new Thread(new Runnable() {
 //            @Override

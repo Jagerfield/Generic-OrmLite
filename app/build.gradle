@@ -29,4 +29,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     compile project(path: ':genericormlitelib')
+    implementation 'com.android.support:recyclerview-v7:25.4.0'
 }
