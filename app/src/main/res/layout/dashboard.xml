@@ -23,39 +23,39 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="DB name: "
+                android:text="DB name :"
                 android:gravity="right"
-                android:textSize="7pt"
+                android:textSize="6.2pt"
                 android:layout_marginLeft="2.5dp"
-                android:layout_marginLRight="2.5dp"
+                android:layout_marginRight="2.5dp"
                 android:textColor="@color/greytext"
                 android:textStyle="bold"/>
 
-            <EditText
+            <TextView
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:layout_marginLeft="2.5dp"
-                android:layout_marginLRight="2.5dp"/>
+                android:layout_marginRight="2.5dp"/>
 
             <Button
                 android:layout_width="70dp"
-                android:layout_height="42dp"
+                android:layout_height="38dp"
                 android:id="@+id/createDatabaseBt"
                 android:text="Create"
                 android:layout_marginLeft="3dp"
-                android:layout_marginLRight="4dp"
-                android:textSize="13dp"
+                android:layout_marginRight="4dp"
+                android:textSize="12dp"
                 android:textAllCaps="false"/>
 
             <Button
                 android:layout_width="70dp"
-                android:layout_height="42dp"
+                android:layout_height="38dp"
                 android:id="@+id/deleteDatabaseBt"
-                android:text="Delete"
+                android:text="Drop"
                 android:layout_marginLeft="4dp"
-                android:layout_marginLRight="8dp"
-                android:textSize="13dp"
+                android:layout_marginRight="8dp"
+                android:textSize="12dp"
                 android:textAllCaps="false"/>
 
         </TableRow>
@@ -65,11 +65,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="DB version: "
+                android:text="DB version :"
                 android:gravity="right"
-                android:textSize="7pt"
+                android:textSize="6.2pt"
                 android:layout_marginLeft="2.5dp"
-                android:layout_marginLRight="2.5dp"
+                android:layout_marginRight="2.5dp"
                 android:textColor="@color/greytext"
                 android:textStyle="bold"/>
 
@@ -78,26 +78,26 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:layout_marginLeft="2.5dp"
-                android:layout_marginLRight="2.5dp"/>
+                android:layout_marginRight="2.5dp"/>
 
             <Button
                 android:layout_width="70dp"
-                android:layout_height="42dp"
+                android:layout_height="38dp"
                 android:id="@+id/updateDbVersionBt"
-                android:text="Update"
+                android:text="V.Up"
                 android:layout_marginLeft="3dp"
-                android:layout_marginLRight="4dp"
-                android:textSize="13dp"
+                android:layout_marginRight="4dp"
+                android:textSize="12dp"
                 android:textAllCaps="false"/>
 
             <Button
                 android:layout_width="70dp"
-                android:layout_height="42dp"
+                android:layout_height="38dp"
                 android:id="@+id/infoDbVersionBt"
-                android:text="Info"
+                android:text="V.Down"
                 android:layout_marginLeft="3dp"
-                android:layout_marginLRight="4dp"
-                android:textSize="13dp"
+                android:layout_marginRight="4dp"
+                android:textSize="12dp"
                 android:textAllCaps="false"/>
 
         </TableRow>
@@ -107,11 +107,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="'buidings' table: "
+                android:text="'buidings' table :"
                 android:gravity="right"
-                android:textSize="7pt"
+                android:textSize="6.2pt"
                 android:layout_marginLeft="2.5dp"
-                android:layout_marginLRight="2.5dp"
+                android:layout_marginRight="2.5dp"
                 android:textColor="@color/greytext"
                 android:textStyle="bold"/>
 
@@ -120,26 +120,26 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:layout_marginLeft="2.5dp"
-                android:layout_marginLRight="2.5dp"/>
+                android:layout_marginRight="2.5dp"/>
 
             <Button
                 android:layout_width="70dp"
-                android:layout_height="42dp"
+                android:layout_height="38dp"
                 android:id="@+id/createBuidlingsTableBt"
                 android:text="Create"
                 android:layout_marginLeft="3dp"
-                android:layout_marginLRight="4dp"
-                android:textSize="13dp"
+                android:layout_marginRight="4dp"
+                android:textSize="12dp"
                 android:textAllCaps="false"/>
 
             <Button
                 android:layout_width="70dp"
-                android:layout_height="42dp"
+                android:layout_height="38dp"
                 android:id="@+id/deleteBuidlingsTableBt"
-                android:text="Delete"
+                android:text="Drop"
                 android:layout_marginLeft="4dp"
-                android:layout_marginLRight="8dp"
-                android:textSize="13dp"
+                android:layout_marginRight="8dp"
+                android:textSize="12dp"
                 android:textAllCaps="false"/>
 
         </TableRow>
@@ -149,9 +149,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="'buidings' entries: "
+                android:text="'buidings' entries :"
                 android:gravity="right"
-                android:textSize="7pt"
+                android:textSize="6.2pt"
                 android:layout_marginLeft="2.5dp"
                 android:textColor="@color/greytext"
                 android:textStyle="bold"/>
@@ -161,26 +161,26 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:layout_marginLeft="2.5dp"
-                android:layout_marginLRight="2.5dp"/>
+                android:layout_marginRight="2.5dp"/>
 
             <Button
                 android:layout_width="70dp"
-                android:layout_height="42dp"
+                android:layout_height="38dp"
                 android:id="@+id/loadBuidlingsTableBt"
-                android:text="Create"
+                android:text="Load"
                 android:layout_marginLeft="3dp"
-                android:layout_marginLRight="4dp"
-                android:textSize="13dp"
+                android:layout_marginRight="4dp"
+                android:textSize="12dp"
                 android:textAllCaps="false"/>
 
             <Button
                 android:layout_width="70dp"
-                android:layout_height="42dp"
+                android:layout_height="38dp"
                 android:id="@+id/clearBuidlingsTableBt"
                 android:text="Clear"
                 android:layout_marginLeft="4dp"
-                android:layout_marginLRight="8dp"
-                android:textSize="13dp"
+                android:layout_marginRight="8dp"
+                android:textSize="12dp"
                 android:textAllCaps="false"/>
 
         </TableRow>
@@ -190,9 +190,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="'persons' entries: "
+                android:text="'persons' entries :"
                 android:gravity="right"
-                android:textSize="7pt"
+                android:textSize="6.2pt"
                 android:layout_marginLeft="2.5dp"
                 android:textColor="@color/greytext"
                 android:textStyle="bold"/>
@@ -202,26 +202,70 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:layout_marginLeft="2.5dp"
-                android:layout_marginLRight="2.5dp"/>
+                android:layout_marginRight="2.5dp"/>
 
             <Button
                 android:layout_width="70dp"
-                android:layout_height="42dp"
+                android:layout_height="38dp"
                 android:id="@+id/loadPersonsTableBt"
-                android:text="Create"
+                android:text="Load"
                 android:layout_marginLeft="3dp"
-                android:layout_marginLRight="4dp"
-                android:textSize="13dp"
+                android:layout_marginRight="4dp"
+                android:textSize="12dp"
                 android:textAllCaps="false"/>
 
             <Button
                 android:layout_width="70dp"
-                android:layout_height="42dp"
+                android:layout_height="38dp"
                 android:id="@+id/clearPersonsTableBt"
                 android:text="Clear"
                 android:layout_marginLeft="4dp"
-                android:layout_marginLRight="8dp"
-                android:textSize="13dp"
+                android:layout_marginRight="8dp"
+                android:textSize="12dp"
+                android:textAllCaps="false"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Concurrent actions :"
+                android:gravity="right"
+                android:textSize="6.2pt"
+                android:layout_marginLeft="2.5dp"
+                android:textColor="@color/greytext"
+                android:textStyle="bold"/>
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="38dp"
+                android:id="@+id/concurrentListBt"
+                android:text="List"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="8dp"
+                android:textSize="12dp"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="38dp"
+                android:id="@+id/concurrentLoadBt"
+                android:text="Load"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="4dp"
+                android:textSize="12dp"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="38dp"
+                android:id="@+id/concurrentClearBt"
+                android:text="Clear"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="8dp"
+                android:textSize="12dp"
                 android:textAllCaps="false"/>
 
         </TableRow>

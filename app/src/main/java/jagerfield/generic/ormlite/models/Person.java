@@ -10,13 +10,13 @@ public class Person implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
-    @DatabaseField(columnName = "id", generatedId = true, allowGeneratedIdInsert = true)
+    @DatabaseField(columnName = IColumns.ID, generatedId = true, allowGeneratedIdInsert = true)
     private int id;
 
-    @DatabaseField(columnName = "name", unique = true, canBeNull = false)
+    @DatabaseField(columnName = IColumns.NAME_FIELD, unique = true, canBeNull = false)
     private String name;
 
-    @DatabaseField(columnName = "age", canBeNull = false)
+    @DatabaseField(columnName = IColumns.AGE_FIELD, canBeNull = false)
     private int age;
 
     public int getAge() {
@@ -45,6 +45,7 @@ public class Person implements Serializable
 
     public interface IColumns
     {
+        String ID = "id";
         String NAME_FIELD = "name";
         String AGE_FIELD = "age";
     }

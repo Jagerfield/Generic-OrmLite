@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity
 
         entityCrud = DaoCrud.getInstance(this);
 
-        Button btnSave = (Button) findViewById(R.id.btGenerate);
+        Button btnSave = (Button) findViewById(R.id.concurrentLoadBt);
         btnSave.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        Button btnDropBuilding = (Button) findViewById(R.id.btDropBuilding);
+        Button btnDropBuilding = (Button) findViewById(R.id.deleteBuidlingsTableBt);
         btnDropBuilding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        Button btnDropDB = (Button) findViewById(R.id.btDropDB);
+        Button btnDropDB = (Button) findViewById(R.id.deleteDatabaseBt);
         btnDropDB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)

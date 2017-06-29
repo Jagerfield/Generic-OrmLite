@@ -2,7 +2,7 @@ package jagerfield.generic.ormlite;
 
 import android.app.Application;
 
-import jagerfield.generic.ormlite.DaoConfig.AppDaoConfig;
+import jagerfield.generic.ormlite.Dao_config.AppDaoConfig;
 import jagerfield.generic.ormlitelib.DaoHelper;
 
 public class MyApp extends Application

@@ -1,4 +1,4 @@
-package jagerfield.generic.ormlite.DaoConfig;
+package jagerfield.generic.ormlite.Dao_config;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

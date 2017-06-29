@@ -1,6 +1,5 @@
 package jagerfield.generic.ormlite.models;
 
-
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -9,13 +8,13 @@ public class Building
 {
     private static final long serialVersionUID = 1L;
 
-    @DatabaseField(columnName = "id", generatedId = true, allowGeneratedIdInsert = true)
+    @DatabaseField(columnName = IColumns.ID, generatedId = true, allowGeneratedIdInsert = true)
     private int id;
 
-    @DatabaseField(columnName = "name", unique = true, canBeNull = false)
+    @DatabaseField(columnName = IColumns.NAME_FIELD, unique = true, canBeNull = false)
     private String name;
 
-    @DatabaseField(columnName = "address", unique = true, canBeNull = false)
+    @DatabaseField(columnName = IColumns.ADDRESS_FIELD, unique = true, canBeNull = false)
     private String address;
 
     public String getName() {
@@ -44,6 +43,8 @@ public class Building
 
     public interface IColumns
     {
+        String ID = "id";
         String NAME_FIELD = "name";
+        String ADDRESS_FIELD = "address";
     }
 }
