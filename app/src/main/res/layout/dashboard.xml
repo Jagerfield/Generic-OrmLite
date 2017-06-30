@@ -54,12 +54,12 @@
 
             <Button
                 android:id="@+id/updateDbVersionBt"
-                android:text="V.Up"
+                android:text="VUp"
                 style="@style/button_dashboard_style"/>
 
             <Button
                 android:id="@+id/downgradeDbVersionBt"
-                android:text="V.Down"
+                android:text="VDown"
                 style="@style/button_dashboard_style"/>
 
         </TableRow>

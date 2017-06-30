@@ -1,6 +1,5 @@
 package jagerfield.generic.ormlite.dao_config;
 
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -17,14 +16,14 @@ import jagerfield.generic.ormlite.models.Person;
 import jagerfield.generic.ormlitelib.DaoConfiguration;
 import jagerfield.generic.ormlitelib.DaoHelper;
 
-public class AppDaoConfigVThree extends DaoConfiguration
+public class AppDaoConfigThree extends DaoConfiguration
 {
     private Set<Class> tableModels;
     private final static String DATABASE_NAME = C.DB_GIVEN_NAME;
     private final static int DATABASE_VERSION = 3;
     private Context context;
 
-    public AppDaoConfigVThree(Context context)
+    public AppDaoConfigThree(Context context)
     {
         this.context = context;
         tableModels = new HashSet<>();
