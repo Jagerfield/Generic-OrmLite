@@ -40,10 +40,10 @@ public class DaoHelper<T> extends OrmLiteSqliteOpenHelper
         return dao;
     }
 
-    public static void InitializeDaoAndTables(Application application, DaoConfiguration configManager)
+    public static void initializeDaoAndTables(Context context, DaoConfiguration configManager)
     {
         daoConfiguration = configManager;
-        DaoHelper daoHelper = DaoHelper.getInstance(application.getApplicationContext());
+        DaoHelper daoHelper = DaoHelper.getInstance(context);
     }
 
     public synchronized SQLiteDatabase getDb()
@@ -72,14 +72,20 @@ public class DaoHelper<T> extends OrmLiteSqliteOpenHelper
         }
     }
 
-    public synchronized boolean deleteDatabase(String dbName)  throws Exception
+    public static void setDaoHelperInstanceToNull()
+    {
+        instance = null;
+    }
+
+    public synchronized static boolean dropDatabase(String dbName)  throws Exception
     {
         if (dbName == null || dbName.isEmpty())
         {
             throw new IllegalArgumentException("dbName is null or empty");
         }
-
-        return context.deleteDatabase(dbName);
+        boolean result = context.deleteDatabase(dbName);
+        instance = null;
+        return result;
     }
 
     public synchronized void createTables(Set<Class> S) throws Exception
@@ -114,7 +120,7 @@ public class DaoHelper<T> extends OrmLiteSqliteOpenHelper
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion)
     {
-        Log.i(DaoHelper.class.getName(), "Updating the DB, all previously stored data would be lost");
+        Log.i(DaoHelper.class.getName(), "Updating the DB");
         try
         {
             daoConfiguration.onUpgrade(database, connectionSource, oldVersion, newVersion);
@@ -127,15 +133,55 @@ public class DaoHelper<T> extends OrmLiteSqliteOpenHelper
     }
 
     @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion)
+    {
+        Log.i(DaoHelper.class.getName(), "Downgrading the DB");
+    }
+
+    @Override
+    public SQLiteDatabase getWritableDatabase() {
+        return super.getWritableDatabase();
+    }
+
+    @Override
+    public SQLiteDatabase getReadableDatabase() {
+        return super.getReadableDatabase();
+    }
+
+    @Override
+    public boolean isOpen()
+    {
+        return super.isOpen();
+    }
+
+    @Override
+    public ConnectionSource getConnectionSource() {
+        return super.getConnectionSource();
+    }
+
+    @Override
+    public String getDatabaseName() {
+        return super.getDatabaseName();
+    }
+
+    @Override
     public void close()
     {
-        super.close();
-
-        if (instance!= null)
+        try
         {
             instance.close();
             instance = null;
         }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            instance = null;
+        }
+
+        super.close();
     }
 
 }

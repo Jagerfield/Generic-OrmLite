@@ -2,7 +2,7 @@ package jagerfield.generic.ormlite;
 
 import android.app.Application;
 
-import jagerfield.generic.ormlite.Dao_config.AppDaoConfig;
+import jagerfield.generic.ormlite.dao_config.AppDaoConfigVOne;
 import jagerfield.generic.ormlitelib.DaoHelper;
 
 public class MyApp extends Application
@@ -12,7 +12,7 @@ public class MyApp extends Application
     {
         super.onCreate();
 
-        DaoHelper.InitializeDaoAndTables(this, new AppDaoConfig(this));
+//        DaoHelper.InitializeDaoAndTables(this, new AppDaoConfigVOne(this));
 
     }
 }

@@ -31,6 +31,11 @@ public abstract class DaoConfiguration
         return dao;
     }
 
+    public void setDaoHelperInstanceToNull()
+    {
+        DaoHelper.setDaoHelperInstanceToNull();
+    }
+
     public abstract Set<Class> getTableModels();
     public abstract String getDatabaseName();
     public abstract int getDatabaseVersion();

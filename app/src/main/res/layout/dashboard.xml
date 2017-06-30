@@ -5,13 +5,14 @@
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
     android:padding="8dp"
+    android:id="@+id/dashboard"
     >
 
     <!--android:stretchColumns="1"-->
     <!--android:layout_column="1"-->
 
     <TableLayout
-        android:id="@+id/tableLayout"
+        android:id="@+id/dashboardTable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -23,8 +24,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Database :"
-                android:gravity="right"
+                android:text="Database exists:"
+                android:gravity="left"
                 android:textSize="6.2pt"
                 android:layout_marginLeft="2.5dp"
                 android:layout_marginRight="2.5dp"
@@ -32,286 +33,296 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:layout_marginLeft="2.5dp"
-                android:layout_marginRight="2.5dp"/>
+                android:id="@+id/dbNameTv"
+                 android:layout_marginLeft="2.5dp"
+                android:layout_marginRight="2.5dp"
+                style="@style/textview_dashboard_style"/>
 
             <Button
-                android:layout_width="70dp"
-                android:layout_height="38dp"
+                android:layout_width="60dp"
+                android:layout_height="36dp"
                 android:id="@+id/createDatabaseBt"
                 android:text="Create"
                 android:layout_marginLeft="3dp"
-                android:layout_marginRight="4dp"
                 android:textSize="12dp"
                 android:textAllCaps="false"/>
 
             <Button
-                android:layout_width="70dp"
+                android:layout_width="50dp"
                 android:layout_height="38dp"
                 android:id="@+id/deleteDatabaseBt"
                 android:text="Drop"
                 android:layout_marginLeft="4dp"
-                android:layout_marginRight="8dp"
                 android:textSize="12dp"
                 android:textAllCaps="false"/>
 
         </TableRow>
 
-        <TableRow>
+        <!--<TableRow>-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="DB version :"
-                android:gravity="right"
-                android:textSize="6.2pt"
-                android:layout_marginLeft="2.5dp"
-                android:layout_marginRight="2.5dp"
-                android:textColor="@color/greytext"
-                android:textStyle="bold"/>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="DB version :"-->
+                <!--android:gravity="left"-->
+                <!--android:textSize="6.2pt"-->
+                <!--android:layout_marginLeft="2.5dp"-->
+                <!--android:layout_marginRight="2.5dp"-->
+                <!--android:textColor="@color/greytext"-->
+                <!--android:textStyle="bold"/>-->
 
-            <TextView
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:layout_marginLeft="2.5dp"
-                android:layout_marginRight="2.5dp"/>
+            <!--<TextView-->
+                <!--android:id="@+id/dbVersionTv"-->
+                <!--android:layout_width="70dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="left"-->
+                <!--android:textSize="6.2pt"-->
+                <!--android:textColor="@color/menublue"-->
+                <!--android:layout_marginLeft="2.5dp"-->
+                <!--android:layout_marginRight="2.5dp"/>-->
 
-            <Button
-                android:layout_width="70dp"
-                android:layout_height="38dp"
-                android:id="@+id/updateDbVersionBt"
-                android:text="V.Up"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="4dp"
-                android:textSize="12dp"
-                android:textAllCaps="false"/>
+            <!--<Button-->
+                <!--android:layout_width="70dp"-->
+                <!--android:layout_height="38dp"-->
+                <!--android:id="@+id/updateDbVersionBt"-->
+                <!--android:text="V.Up"-->
+                <!--android:layout_marginLeft="3dp"-->
+                <!--android:layout_marginRight="4dp"-->
+                <!--android:textSize="12dp"-->
+                <!--android:textAllCaps="false"/>-->
 
-            <Button
-                android:layout_width="70dp"
-                android:layout_height="38dp"
-                android:id="@+id/infoDbVersionBt"
-                android:text="V.Down"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="4dp"
-                android:textSize="12dp"
-                android:textAllCaps="false"/>
+            <!--<Button-->
+                <!--android:layout_width="70dp"-->
+                <!--android:layout_height="38dp"-->
+                <!--android:id="@+id/downgradeDbVersionBt"-->
+                <!--android:text="V.Down"-->
+                <!--android:layout_marginLeft="3dp"-->
+                <!--android:layout_marginRight="4dp"-->
+                <!--android:textSize="12dp"-->
+                <!--android:textAllCaps="false"/>-->
 
-        </TableRow>
+        <!--</TableRow>-->
 
-        <TableRow>
+        <!--<TableRow>-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="'buidings' table :"
-                android:gravity="right"
-                android:textSize="6.2pt"
-                android:layout_marginLeft="2.5dp"
-                android:layout_marginRight="2.5dp"
-                android:textColor="@color/greytext"
-                android:textStyle="bold"/>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="'buidings' table :"-->
+                <!--android:gravity="left"-->
+                <!--android:textSize="6.2pt"-->
+                <!--android:layout_marginLeft="2.5dp"-->
+                <!--android:layout_marginRight="2.5dp"-->
+                <!--android:textColor="@color/greytext"-->
+                <!--android:textStyle="bold"/>-->
 
-            <TextView
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:layout_marginLeft="2.5dp"
-                android:layout_marginRight="2.5dp"/>
+            <!--<TextView-->
+                <!--android:id="@+id/isBuildingsTableTv"-->
+                <!--android:layout_width="70dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="left"-->
+                <!--android:textSize="6.2pt"-->
+                <!--android:textColor="@color/menublue"-->
+                <!--android:layout_marginLeft="2.5dp"-->
+                <!--android:layout_marginRight="2.5dp"/>-->
 
-            <Button
-                android:layout_width="70dp"
-                android:layout_height="38dp"
-                android:id="@+id/createBuidlingsTableBt"
-                android:text="Create"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="4dp"
-                android:textSize="12dp"
-                android:textAllCaps="false"/>
+            <!--<Button-->
+                <!--android:layout_width="70dp"-->
+                <!--android:layout_height="38dp"-->
+                <!--android:id="@+id/createBuidlingsTableBt"-->
+                <!--android:text="Create"-->
+                <!--android:layout_marginLeft="3dp"-->
+                <!--android:layout_marginRight="4dp"-->
+                <!--android:textSize="12dp"-->
+                <!--android:textAllCaps="false"/>-->
 
-            <Button
-                android:layout_width="70dp"
-                android:layout_height="38dp"
-                android:id="@+id/deleteBuidlingsTableBt"
-                android:text="Drop"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="8dp"
-                android:textSize="12dp"
-                android:textAllCaps="false"/>
+            <!--<Button-->
+                <!--android:layout_width="70dp"-->
+                <!--android:layout_height="38dp"-->
+                <!--android:id="@+id/deleteBuidlingsTableBt"-->
+                <!--android:text="Drop"-->
+                <!--android:layout_marginLeft="4dp"-->
+                <!--android:layout_marginRight="8dp"-->
+                <!--android:textSize="12dp"-->
+                <!--android:textAllCaps="false"/>-->
 
-        </TableRow>
+        <!--</TableRow>-->
 
-        <TableRow>
+        <!--<TableRow>-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="'buidings' entries :"
-                android:gravity="right"
-                android:textSize="6.2pt"
-                android:layout_marginLeft="2.5dp"
-                android:textColor="@color/greytext"
-                android:textStyle="bold"/>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="'buidings' entries :"-->
+                <!--android:gravity="left"-->
+                <!--android:textSize="6.2pt"-->
+                <!--android:layout_marginLeft="2.5dp"-->
+                <!--android:textColor="@color/greytext"-->
+                <!--android:textStyle="bold"/>-->
 
-            <TextView
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:layout_marginLeft="2.5dp"
-                android:layout_marginRight="2.5dp"/>
+            <!--<TextView-->
+                <!--android:id="@+id/buildingsEntriesTv"-->
+                <!--android:layout_width="70dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="left"-->
+                <!--android:textSize="6.2pt"-->
+                <!--android:textColor="@color/menublue"-->
+                <!--android:layout_marginLeft="2.5dp"-->
+                <!--android:layout_marginRight="2.5dp"/>-->
 
-            <Button
-                android:layout_width="70dp"
-                android:layout_height="38dp"
-                android:id="@+id/loadBuidlingsTableBt"
-                android:text="Load"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="4dp"
-                android:textSize="12dp"
-                android:textAllCaps="false"/>
+            <!--<Button-->
+                <!--android:layout_width="70dp"-->
+                <!--android:layout_height="38dp"-->
+                <!--android:id="@+id/loadBuidlingsTableBt"-->
+                <!--android:text="Load"-->
+                <!--android:layout_marginLeft="3dp"-->
+                <!--android:layout_marginRight="4dp"-->
+                <!--android:textSize="12dp"-->
+                <!--android:textAllCaps="false"/>-->
 
-            <Button
-                android:layout_width="70dp"
-                android:layout_height="38dp"
-                android:id="@+id/clearBuidlingsTableBt"
-                android:text="Clear"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="8dp"
-                android:textSize="12dp"
-                android:textAllCaps="false"/>
+            <!--<Button-->
+                <!--android:layout_width="70dp"-->
+                <!--android:layout_height="38dp"-->
+                <!--android:id="@+id/clearBuidlingsTableBt"-->
+                <!--android:text="Clear"-->
+                <!--android:layout_marginLeft="4dp"-->
+                <!--android:layout_marginRight="8dp"-->
+                <!--android:textSize="12dp"-->
+                <!--android:textAllCaps="false"/>-->
 
-        </TableRow>
+        <!--</TableRow>-->
 
-        <TableRow>
+        <!--<TableRow>-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="'persons' entries :"
-                android:gravity="right"
-                android:textSize="6.2pt"
-                android:layout_marginLeft="2.5dp"
-                android:textColor="@color/greytext"
-                android:textStyle="bold"/>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="'persons' entries :"-->
+                <!--android:gravity="left"-->
+                <!--android:textSize="6.2pt"-->
+                <!--android:layout_marginLeft="2.5dp"-->
+                <!--android:textColor="@color/greytext"-->
+                <!--android:textStyle="bold"/>-->
 
-            <TextView
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:layout_marginLeft="2.5dp"
-                android:layout_marginRight="2.5dp"/>
+            <!--<TextView-->
+                <!--android:id="@+id/personsEntriesTv"-->
+                <!--android:layout_width="70dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="left"-->
+                <!--android:textSize="6.2pt"-->
+                <!--android:textColor="@color/menublue"-->
+                <!--android:layout_marginLeft="2.5dp"-->
+                <!--android:layout_marginRight="2.5dp"/>-->
 
-            <Button
-                android:layout_width="70dp"
-                android:layout_height="38dp"
-                android:id="@+id/loadPersonsTableBt"
-                android:text="Load"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="4dp"
-                android:textSize="12dp"
-                android:textAllCaps="false"/>
+            <!--<Button-->
+                <!--android:layout_width="70dp"-->
+                <!--android:layout_height="38dp"-->
+                <!--android:id="@+id/loadPersonsTableBt"-->
+                <!--android:text="Load"-->
+                <!--android:layout_marginLeft="3dp"-->
+                <!--android:layout_marginRight="4dp"-->
+                <!--android:textSize="12dp"-->
+                <!--android:textAllCaps="false"/>-->
 
-            <Button
-                android:layout_width="70dp"
-                android:layout_height="38dp"
-                android:id="@+id/clearPersonsTableBt"
-                android:text="Clear"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="8dp"
-                android:textSize="12dp"
-                android:textAllCaps="false"/>
+            <!--<Button-->
+                <!--android:layout_width="70dp"-->
+                <!--android:layout_height="38dp"-->
+                <!--android:id="@+id/clearPersonsTableBt"-->
+                <!--android:text="Clear"-->
+                <!--android:layout_marginLeft="4dp"-->
+                <!--android:layout_marginRight="8dp"-->
+                <!--android:textSize="12dp"-->
+                <!--android:textAllCaps="false"/>-->
 
-        </TableRow>
+        <!--</TableRow>-->
 
+        <!--<TableRow>-->
 
-        <TableRow>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="'employees' entries :"-->
+                <!--android:gravity="left"-->
+                <!--android:textSize="6.2pt"-->
+                <!--android:layout_marginLeft="2.5dp"-->
+                <!--android:textColor="@color/greytext"-->
+                <!--android:textStyle="bold"/>-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="'employees' entries :"
-                android:gravity="right"
-                android:textSize="6.2pt"
-                android:layout_marginLeft="2.5dp"
-                android:textColor="@color/greytext"
-                android:textStyle="bold"/>
+            <!--<TextView-->
+                <!--android:id="@+id/employeesEntriesTv"-->
+                <!--android:layout_width="70dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="left"-->
+                <!--android:textSize="6.2pt"-->
+                <!--android:textColor="@color/menublue"-->
+                <!--android:layout_marginLeft="2.5dp"-->
+                <!--android:layout_marginRight="2.5dp"/>-->
 
-            <TextView
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:layout_marginLeft="2.5dp"
-                android:layout_marginRight="2.5dp"/>
+            <!--<Button-->
+                <!--android:layout_width="70dp"-->
+                <!--android:layout_height="38dp"-->
+                <!--android:id="@+id/loadEmployeesTableBt"-->
+                <!--android:text="Load"-->
+                <!--android:layout_marginLeft="3dp"-->
+                <!--android:layout_marginRight="4dp"-->
+                <!--android:textSize="12dp"-->
+                <!--android:textAllCaps="false"/>-->
 
-            <Button
-                android:layout_width="70dp"
-                android:layout_height="38dp"
-                android:id="@+id/loadEmployeesTableBt"
-                android:text="Load"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="4dp"
-                android:textSize="12dp"
-                android:textAllCaps="false"/>
+            <!--<Button-->
+                <!--android:layout_width="70dp"-->
+                <!--android:layout_height="38dp"-->
+                <!--android:id="@+id/clearEmployeesTableBt"-->
+                <!--android:text="Clear"-->
+                <!--android:layout_marginLeft="4dp"-->
+                <!--android:layout_marginRight="8dp"-->
+                <!--android:textSize="12dp"-->
+                <!--android:textAllCaps="false"/>-->
 
-            <Button
-                android:layout_width="70dp"
-                android:layout_height="38dp"
-                android:id="@+id/clearEmployeesTableBt"
-                android:text="Clear"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="8dp"
-                android:textSize="12dp"
-                android:textAllCaps="false"/>
+        <!--</TableRow>-->
 
-        </TableRow>
+        <!--<TableRow>-->
 
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Concurrent actions :"-->
+                <!--android:gravity="left"-->
+                <!--android:textSize="6.2pt"-->
+                <!--android:layout_marginLeft="2.5dp"-->
+                <!--android:textColor="@color/greytext"-->
+                <!--android:textStyle="bold"/>-->
 
-        <TableRow>
+            <!--<Button-->
+                <!--android:layout_width="70dp"-->
+                <!--android:layout_height="38dp"-->
+                <!--android:id="@+id/concurrentListBt"-->
+                <!--android:text="List"-->
+                <!--android:layout_marginLeft="4dp"-->
+                <!--android:layout_marginRight="8dp"-->
+                <!--android:textSize="12dp"-->
+                <!--android:textAllCaps="false"/>-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Concurrent actions :"
-                android:gravity="right"
-                android:textSize="6.2pt"
-                android:layout_marginLeft="2.5dp"
-                android:textColor="@color/greytext"
-                android:textStyle="bold"/>
+            <!--<Button-->
+                <!--android:layout_width="70dp"-->
+                <!--android:layout_height="38dp"-->
+                <!--android:id="@+id/concurrentLoadBt"-->
+                <!--android:text="Load"-->
+                <!--android:layout_marginLeft="3dp"-->
+                <!--android:layout_marginRight="4dp"-->
+                <!--android:textSize="12dp"-->
+                <!--android:textAllCaps="false"/>-->
 
-            <Button
-                android:layout_width="70dp"
-                android:layout_height="38dp"
-                android:id="@+id/concurrentListBt"
-                android:text="List"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="8dp"
-                android:textSize="12dp"
-                android:textAllCaps="false"/>
+            <!--<Button-->
+                <!--android:layout_width="70dp"-->
+                <!--android:layout_height="38dp"-->
+                <!--android:id="@+id/concurrentClearBt"-->
+                <!--android:text="Clear"-->
+                <!--android:layout_marginLeft="4dp"-->
+                <!--android:layout_marginRight="8dp"-->
+                <!--android:textSize="12dp"-->
+                <!--android:textAllCaps="false"/>-->
 
-            <Button
-                android:layout_width="70dp"
-                android:layout_height="38dp"
-                android:id="@+id/concurrentLoadBt"
-                android:text="Load"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="4dp"
-                android:textSize="12dp"
-                android:textAllCaps="false"/>
-
-            <Button
-                android:layout_width="70dp"
-                android:layout_height="38dp"
-                android:id="@+id/concurrentClearBt"
-                android:text="Clear"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="8dp"
-                android:textSize="12dp"
-                android:textAllCaps="false"/>
-
-        </TableRow>
+        <!--</TableRow>-->
 
     </TableLayout>
 
@@ -321,7 +332,7 @@
         android:layout_height ="1dip"
         android:background="#FF909090"
         android:orientation="horizontal"
-        android:layout_below="@+id/tableLayout"/>
+        android:layout_below="@+id/dashboardTable"/>
 
     <LinearLayout
         android:id="@+id/headers"

@@ -1,4 +1,4 @@
-package jagerfield.generic.ormlite.Dao_config;
+package jagerfield.generic.ormlite.dao_config;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -6,23 +6,29 @@ import android.util.Log;
 import com.j256.ormlite.support.ConnectionSource;
 import java.util.HashSet;
 import java.util.Set;
+
+import jagerfield.generic.ormlite.app_utils.C;
 import jagerfield.generic.ormlite.models.Building;
 import jagerfield.generic.ormlite.models.Person;
 import jagerfield.generic.ormlitelib.DaoConfiguration;
 
-public class AppDaoConfig extends DaoConfiguration
+public class AppDaoConfigVOne extends DaoConfiguration
 {
     private Set<Class> tableModels;
-    private final String DATABASE_NAME = "OrmLiteTest.db";
-    private final int DATABASE_VERSION = 12;
+    public final static String DATABASE_NAME = C.DB_GIVEN_NAME;
+    public final static int DATABASE_VERSION = 1;
     private Context context;
 
-    public AppDaoConfig(Context context)
+    public AppDaoConfigVOne(Context context)
     {
         this.context = context;
         tableModels = new HashSet<>();
-        tableModels.add(Person.class);
-        tableModels.add(Building.class);
+
+        if(DATABASE_VERSION == 1)
+        {
+            tableModels.add(Person.class);
+            tableModels.add(Building.class);
+        }
     }
 
     @Override
@@ -45,7 +51,7 @@ public class AppDaoConfig extends DaoConfiguration
     {
         switch (oldVersion)
         {
-            case DATABASE_VERSION -1:
+            case 1:
                 updateFromPreviousVersion(database, connectionSource, oldVersion, newVersion);
                 break;
             default:
