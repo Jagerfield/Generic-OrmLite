@@ -22,86 +22,47 @@
     <TableRow>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Database exists:"
-                android:gravity="left"
-                android:textSize="6.2pt"
-                android:layout_marginLeft="2.5dp"
-                android:layout_marginRight="2.5dp"
-                android:textColor="@color/greytext"
-                android:textStyle="bold"/>
+                android:text="DB exists :"
+                style="@style/textview_dashboard_style_one"/>
 
             <TextView
                 android:id="@+id/dbNameTv"
-                 android:layout_marginLeft="2.5dp"
-                android:layout_marginRight="2.5dp"
-                style="@style/textview_dashboard_style"/>
+                style="@style/textview_dashboard_style_two"/>
 
             <Button
-                android:layout_width="60dp"
-                android:layout_height="36dp"
                 android:id="@+id/createDatabaseBt"
                 android:text="Create"
-                android:layout_marginLeft="3dp"
-                android:textSize="12dp"
-                android:textAllCaps="false"/>
+                style="@style/button_dashboard_style"
+                />
 
             <Button
-                android:layout_width="50dp"
-                android:layout_height="38dp"
                 android:id="@+id/deleteDatabaseBt"
                 android:text="Drop"
-                android:layout_marginLeft="4dp"
-                android:textSize="12dp"
-                android:textAllCaps="false"/>
+                style="@style/button_dashboard_style"/>
 
         </TableRow>
 
-        <!--<TableRow>-->
+        <TableRow>
 
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="DB version :"-->
-                <!--android:gravity="left"-->
-                <!--android:textSize="6.2pt"-->
-                <!--android:layout_marginLeft="2.5dp"-->
-                <!--android:layout_marginRight="2.5dp"-->
-                <!--android:textColor="@color/greytext"-->
-                <!--android:textStyle="bold"/>-->
+            <TextView
+                android:text="DB version :"
+                style="@style/textview_dashboard_style_one"/>
 
-            <!--<TextView-->
-                <!--android:id="@+id/dbVersionTv"-->
-                <!--android:layout_width="70dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:gravity="left"-->
-                <!--android:textSize="6.2pt"-->
-                <!--android:textColor="@color/menublue"-->
-                <!--android:layout_marginLeft="2.5dp"-->
-                <!--android:layout_marginRight="2.5dp"/>-->
+            <TextView
+                android:id="@+id/dbVersionTv"
+                style="@style/textview_dashboard_style_two"/>
 
-            <!--<Button-->
-                <!--android:layout_width="70dp"-->
-                <!--android:layout_height="38dp"-->
-                <!--android:id="@+id/updateDbVersionBt"-->
-                <!--android:text="V.Up"-->
-                <!--android:layout_marginLeft="3dp"-->
-                <!--android:layout_marginRight="4dp"-->
-                <!--android:textSize="12dp"-->
-                <!--android:textAllCaps="false"/>-->
+            <Button
+                android:id="@+id/updateDbVersionBt"
+                android:text="V.Up"
+                style="@style/button_dashboard_style"/>
 
-            <!--<Button-->
-                <!--android:layout_width="70dp"-->
-                <!--android:layout_height="38dp"-->
-                <!--android:id="@+id/downgradeDbVersionBt"-->
-                <!--android:text="V.Down"-->
-                <!--android:layout_marginLeft="3dp"-->
-                <!--android:layout_marginRight="4dp"-->
-                <!--android:textSize="12dp"-->
-                <!--android:textAllCaps="false"/>-->
+            <Button
+                android:id="@+id/downgradeDbVersionBt"
+                android:text="V.Down"
+                style="@style/button_dashboard_style"/>
 
-        <!--</TableRow>-->
+        </TableRow>
 
         <!--<TableRow>-->
 
@@ -330,7 +291,7 @@
         android:id="@+id/horizontalLine1"
         android:layout_width ="match_parent"
         android:layout_height ="1dip"
-        android:background="#FF909090"
+        android:background="@color/greymedium"
         android:orientation="horizontal"
         android:layout_below="@+id/dashboardTable"/>
 
@@ -338,7 +299,7 @@
         android:id="@+id/headers"
         android:layout_width ="match_parent"
         android:layout_height ="28dip"
-        android:background="@color/green"
+        android:background="@color/bluelight"
         android:orientation="horizontal"
         android:layout_below="@id/horizontalLine1"
         android:weightSum="3"
@@ -347,7 +308,7 @@
         <LinearLayout
             android:layout_height="match_parent"
             android:layout_width="1dip"
-            android:background="#FF909090"
+            android:background="@color/greymedium"
             android:orientation="vertical"/>
 
         <TextView
@@ -392,7 +353,7 @@
         <LinearLayout
             android:layout_height="match_parent"
             android:layout_width="1dip"
-            android:background="#FF909090"
+            android:background="@color/greymedium"
             android:orientation="vertical"/>
 
 
@@ -403,7 +364,7 @@
         android:id="@+id/horizontalLine2"
         android:layout_width ="match_parent"
         android:layout_height ="1dip"
-        android:background="#FF909090"
+        android:background="@color/greymedium"
         android:orientation="horizontal"
         android:layout_below="@id/headers"/>
 
@@ -428,7 +389,7 @@
         <LinearLayout
         android:layout_height="match_parent"
         android:layout_width="1dip"
-        android:background="#FF909090"
+        android:background="@color/greymedium"
         android:orientation="vertical"/>
 
         <android.support.v7.widget.RecyclerView
@@ -442,7 +403,7 @@
         <LinearLayout
             android:layout_height="match_parent"
             android:layout_width="1dip"
-            android:background="#FF909090"
+            android:background="@color/greymedium"
             android:orientation="vertical"/>
 
         <android.support.v7.widget.RecyclerView
@@ -458,7 +419,7 @@
     <LinearLayout
         android:layout_width ="match_parent"
         android:layout_height ="1dip"
-        android:background="#FF909090"
+        android:background="@color/greymedium"
         android:orientation="horizontal"
         android:layout_below="@id/recyclers"/>
 

@@ -65,7 +65,6 @@ public class UserInteractionPresenter
         isDbExist();
     }
 
-
     private void initiate()
     {
         dashboard = (RelativeLayout) activity.findViewById(R.id.dashboard);
@@ -294,15 +293,14 @@ public class UserInteractionPresenter
                         view.setEnabled(state);
                     }
 
-                    if (view instanceof TextView)
-                    {
-                        view.setEnabled(state);
-                    }
+//                    if (view instanceof TextView)
+//                    {
+//                        view.setEnabled(state);
+//                    }
                 }
             }
         }
     }
-
 }
 
 

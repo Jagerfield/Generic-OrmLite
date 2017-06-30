@@ -13,12 +13,33 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="textview_dashboard_style" parent="@android:style/Widget.TextView">
-        <item name="android:layout_width">60dp</item>
+    <style name="textview_dashboard_style_one" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">left</item>
+        <item name="android:layout_gravity">left|center_vertical</item>
+        <item name="android:textSize">6.2pt</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/purple</item>
+    </style>
+
+    <style name="textview_dashboard_style_two" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">55dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
         <item name="android:textSize">6.2pt</item>
         <item name="android:textColor">@color/menublue</item>
+    </style>
+
+    <style name="button_dashboard_style" parent="@android:style/Widget.Button">
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">33dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:textSize">12.5dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/greendark</item>
     </style>
 
 </resources>
