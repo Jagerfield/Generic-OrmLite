@@ -4,7 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import jagerfield.generic.ormlite.app_utils.C;
-import jagerfield.generic.ormlite.dao_config.AppDaoConfigVOne;
+import jagerfield.generic.ormlite.dao_config.AppDaoConfigOne;
+import jagerfield.generic.ormlite.dao_config.AppDaoConfigTwo;
 import jagerfield.generic.ormlite.data_generators.BuildingDataGen;
 import jagerfield.generic.ormlite.data_generators.EmployeeDataGen;
 import jagerfield.generic.ormlite.data_generators.PersonDataGen;
@@ -30,9 +31,11 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
 
-        DaoHelper.initializeDaoAndTables(getApplicationContext(), new AppDaoConfigVOne(this));
+        DaoHelper.initializeDaoAndTables(getApplicationContext(), new AppDaoConfigOne(this));
 
         entityCrud = DaoCrud.getInstance(this);
+
+        int version = DaoHelper.getInstance(this).getDatabaseVersion();
 
         boolean isOpen = DaoHelper.getInstance(this).isOpen();
         String dbName = DaoHelper.getInstance(this).getDatabaseName();

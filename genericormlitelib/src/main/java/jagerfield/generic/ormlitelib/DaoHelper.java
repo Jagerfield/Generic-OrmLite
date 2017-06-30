@@ -1,6 +1,5 @@
 package jagerfield.generic.ormlitelib;
 
-import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -19,7 +18,7 @@ public class DaoHelper<T> extends OrmLiteSqliteOpenHelper
 
     private DaoHelper(Context context)
     {
-        super(context, daoConfiguration.getDatabaseName(), null, daoConfiguration.getDatabaseVersion());
+        super(context, daoConfiguration.getConfigDatabaseName(), null, daoConfiguration.getConfigDatabaseVersion());
         this.context = context;
     }
 
@@ -64,7 +63,7 @@ public class DaoHelper<T> extends OrmLiteSqliteOpenHelper
     {
         try
         {
-            createTables(daoConfiguration.getTableModels());
+            createTables(daoConfiguration.getAppTableModels());
         }
         catch (Exception e)
         {
@@ -136,6 +135,15 @@ public class DaoHelper<T> extends OrmLiteSqliteOpenHelper
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
         Log.i(DaoHelper.class.getName(), "Downgrading the DB");
+
+        try
+        {
+            daoConfiguration.onDowngrade(db, oldVersion, newVersion);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -162,6 +170,11 @@ public class DaoHelper<T> extends OrmLiteSqliteOpenHelper
     @Override
     public String getDatabaseName() {
         return super.getDatabaseName();
+    }
+
+    public int getDatabaseVersion()
+    {
+        return getWritableDatabase().getVersion();
     }
 
     @Override

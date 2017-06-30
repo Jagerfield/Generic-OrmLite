@@ -12,8 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import jagerfield.generic.ormlite.app_utils.C;
-import jagerfield.generic.ormlite.dao_config.AppDaoConfigVOne;
+import jagerfield.generic.ormlite.dao_config.AppDaoConfigTwo;
 import jagerfield.generic.ormlitelib.DaoHelper;
 
 public class UserInteractionPresenter
@@ -63,6 +62,8 @@ public class UserInteractionPresenter
         initiate();
 
         isDbExist();
+
+        getDaoDbVersion();
     }
 
     private void initiate()
@@ -70,8 +71,8 @@ public class UserInteractionPresenter
         dashboard = (RelativeLayout) activity.findViewById(R.id.dashboard);
         createDatabaseBt = (Button) activity.findViewById(R.id.createDatabaseBt);
         deleteDatabaseBt = (Button) activity.findViewById(R.id.deleteDatabaseBt);
-//        updateDbVersionBt = (Button) activity.findViewById(R.id.updateDbVersionBt);
-//        downgradeDbVersionBt = (Button) activity.findViewById(R.id.downgradeDbVersionBt);
+        updateDbVersionBt = (Button) activity.findViewById(R.id.updateDbVersionBt);
+        downgradeDbVersionBt = (Button) activity.findViewById(R.id.downgradeDbVersionBt);
 //        createBuidlingsTableBt = (Button) activity.findViewById(R.id.createBuidlingsTableBt);
 //        deleteBuidlingsTableBt = (Button) activity.findViewById(R.id.deleteBuidlingsTableBt);
 //        loadBuidlingsTableBt = (Button) activity.findViewById(R.id.loadBuidlingsTableBt);
@@ -102,7 +103,7 @@ public class UserInteractionPresenter
 
                 try
                 {
-                    DaoHelper.initializeDaoAndTables(activity, new AppDaoConfigVOne(activity));
+                    DaoHelper.initializeDaoAndTables(activity, new AppDaoConfigTwo(activity));
                     isDbExist();
                 }
                 catch (Exception e)
@@ -119,7 +120,7 @@ public class UserInteractionPresenter
             {
                 try
                 {
-                    boolean result = DaoHelper.dropDatabase(AppDaoConfigVOne.DATABASE_NAME);
+                    boolean result = DaoHelper.dropDatabase(AppDaoConfigTwo.DATABASE_NAME);
                     isDbExist();
                 }
                 catch (Exception e)
@@ -128,21 +129,31 @@ public class UserInteractionPresenter
                 }
             }
         });
-//
-//        updateDbVersionBt.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
-//
-//        downgradeDbVersionBt.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
-//
+
+        updateDbVersionBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                final int version = getDaoDbVersion();
+
+                switch(version)
+                {
+                    case 1:
+                        DaoHelper.setDaoHelperInstanceToNull();
+                        DaoHelper.initializeDaoAndTables(activity.getApplicationContext(), new AppDaoConfigTwo(activity.getApplicationContext()));
+                        break;
+                }
+
+            }
+        });
+
+        downgradeDbVersionBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
 //        createBuidlingsTableBt.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -300,6 +311,24 @@ public class UserInteractionPresenter
                 }
             }
         }
+    }
+
+    private int getDaoDbVersion()
+    {
+        int version = 0;
+        try
+        {
+            version = DaoHelper.getInstance(activity).getDatabaseVersion();
+            dbVersionTv.setText(version);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            version = 0;
+            dbVersionTv.setText("None");
+        }
+
+        return version;
     }
 }
 

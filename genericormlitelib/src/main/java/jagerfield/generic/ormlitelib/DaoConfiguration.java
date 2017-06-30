@@ -21,7 +21,7 @@ public abstract class DaoConfiguration
         return instance;
     }
 
-    public Dao getDaoEntity(Context context, Class T) throws Exception
+    public Dao getDaoGeneric(Context context, Class T) throws Exception
     {
         Dao dao = DaoHelper.getInstance(context).getDao(T);
         if (dao == null)
@@ -36,8 +36,10 @@ public abstract class DaoConfiguration
         DaoHelper.setDaoHelperInstanceToNull();
     }
 
-    public abstract Set<Class> getTableModels();
-    public abstract String getDatabaseName();
-    public abstract int getDatabaseVersion();
+    public abstract Set<Class> getAppTableModels();
+    public abstract String getConfigDatabaseName();
+    public abstract int getConfigDatabaseVersion();
+    public abstract int getSqlLiteDatabaseVersion(DaoHelper daoHelper);
     public abstract void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion);
+    public abstract void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion);
 }

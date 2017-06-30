@@ -9,17 +9,19 @@ import java.util.Set;
 
 import jagerfield.generic.ormlite.app_utils.C;
 import jagerfield.generic.ormlite.models.Building;
+import jagerfield.generic.ormlite.models.Employee;
 import jagerfield.generic.ormlite.models.Person;
 import jagerfield.generic.ormlitelib.DaoConfiguration;
+import jagerfield.generic.ormlitelib.DaoHelper;
 
-public class AppDaoConfigVOne extends DaoConfiguration
+public class AppDaoConfigTwo extends DaoConfiguration
 {
     private Set<Class> tableModels;
     public final static String DATABASE_NAME = C.DB_GIVEN_NAME;
-    public final static int DATABASE_VERSION = 1;
+    public final static int DATABASE_VERSION = 2;
     private Context context;
 
-    public AppDaoConfigVOne(Context context)
+    public AppDaoConfigTwo(Context context)
     {
         this.context = context;
         tableModels = new HashSet<>();
@@ -32,18 +34,25 @@ public class AppDaoConfigVOne extends DaoConfiguration
     }
 
     @Override
-    public Set<Class> getTableModels() {
+    public Set<Class> getAppTableModels() {
         return tableModels;
     }
 
     @Override
-    public String getDatabaseName() {
+    public String getConfigDatabaseName() {
         return DATABASE_NAME;
     }
 
     @Override
-    public int getDatabaseVersion() {
+    public int getConfigDatabaseVersion() {
         return DATABASE_VERSION;
+    }
+
+    @Override
+    public int getSqlLiteDatabaseVersion(DaoHelper daoHelper)
+    {
+        int v = daoHelper.getDatabaseVersion();
+        return v;
     }
 
     @Override
@@ -52,32 +61,54 @@ public class AppDaoConfigVOne extends DaoConfiguration
         switch (oldVersion)
         {
             case 1:
-                updateFromPreviousVersion(database, connectionSource, oldVersion, newVersion);
+                updateFromVersionOne(database, connectionSource, oldVersion, newVersion);
                 break;
             default:
                 break;
         }
     }
 
-    public void updateFromPreviousVersion(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion)
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion)
+    {
+        switch (newVersion)
+        {
+            case 1:
+                try
+                {
+                    int result = super.getDaoHelper(context).dropTable(Building.class, true);
+                    Log.i("TAG", "Added table 'buildings");
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void updateFromVersionOne(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion)
     {
         Log.i("TAG", "Upgrading DB from version 2");
 
-        if (oldVersion==11)
+        if (oldVersion==1)
         {
-            try
+            if(newVersion==DATABASE_VERSION)
             {
-                int result1 = super.getDaoHelper(context).createTable(Building.class);
-                Log.i("TAG", "Added table 'buildings");
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
+                try
+                {
+                    int result1 = super.getDaoHelper(context).createTable(Building.class);
+                    Log.i("TAG", "Added table 'buildings");
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
             }
         }
-
     }
-
 }
 
 
