@@ -1,6 +1,7 @@
 package jagerfield.generic.ormlite;
 
 import android.app.Activity;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
@@ -13,9 +14,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import jagerfield.generic.ormlite.dao_config.AppDaoConfigOne;
+import jagerfield.generic.ormlite.app_utils.C;
+import jagerfield.generic.ormlite.app_utils.PrefrenceUtil;
 import jagerfield.generic.ormlite.dao_config.AppDaoConfigTwo;
-import jagerfield.generic.ormlite.dao_config.AppDaoConfigThree;
 import jagerfield.generic.ormlitelib.DaoHelper;
 
 public class UserInteractionPresenter
@@ -36,7 +37,6 @@ public class UserInteractionPresenter
     private Button concurrentListBt;
     private Button concurrentLoadBt;
     private Button concurrentClearBt;
-
     private TextView dbExistsTv;
     private TextView dbVersionTv;
     private TextView isBuildingsTableTv;
@@ -45,21 +45,23 @@ public class UserInteractionPresenter
     private TextView employeesEntriesTv;
 
     private Activity activity;
+    private ICalls mainActivity;
 
-    public UserInteractionPresenter(Activity activity)
+    public UserInteractionPresenter(Activity activity, ICalls mainActivity)
     {
         this.activity = activity;
+        this.mainActivity = mainActivity;
 
         initialize();
-
-        dashboardValues();
+        configureDatabaseButtons();
+        dashboardUiSettings();
 
     }
 
-    private void dashboardValues()
+    private void dashboardUiSettings()
     {
         if (sysBroken(activity)) { return;}
-        isDbExist();
+
         getDaoDbVersion();
     }
 
@@ -95,15 +97,14 @@ public class UserInteractionPresenter
             @Override
             public void onClick(View v)
             {
-
                 if (sysBroken(activity, dbVersionTv)) {
                     return;
                 }
 
                 try
                 {
-                    DaoHelper.initializeDaoAndTables(activity, new AppDaoConfigTwo(activity));
-                    dashboardValues();
+                    C.createAppDB(activity.getApplicationContext());
+                    configureDatabaseButtons();
                 }
                 catch (Exception e)
                 {
@@ -117,12 +118,11 @@ public class UserInteractionPresenter
             @Override
             public void onClick(View v)
             {
-
                 if (activity==null) { Log.e("TAG", "Activity is null"); return; }
                 try
                 {
                     boolean result = DaoHelper.dropDatabase(AppDaoConfigTwo.DATABASE_NAME);
-                    dashboardValues();
+                    configureDatabaseButtons();
                 }
                 catch (Exception e)
                 {
@@ -131,12 +131,13 @@ public class UserInteractionPresenter
             }
         });
 
-        updateDbVersionBt.setOnClickListener(new View.OnClickListener() {
+        updateDbVersionBt.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v)
             {
 
-                if (sysBroken(activity, dbVersionTv)) {
+                if (sysBroken(activity)) {
                     return ;
                 }
 
@@ -148,20 +149,9 @@ public class UserInteractionPresenter
                     return;
                 }
 
-                switch(version)
-                {
-                    case 1:
-                        DaoHelper.setDaoHelperInstanceToNull();
-                        DaoHelper.initializeDaoAndTables(activity.getApplicationContext(), new AppDaoConfigTwo(activity.getApplicationContext()));
-                        break;
-                    case 2:
-                        DaoHelper.setDaoHelperInstanceToNull();
-                        DaoHelper.initializeDaoAndTables(activity.getApplicationContext(), new AppDaoConfigThree(activity.getApplicationContext()));
-                        break;
-                }
+                int nextVersion = version + 1;
 
-                dashboardValues();
-
+                executeDbVersionChange(nextVersion);
             }
         });
 
@@ -175,25 +165,9 @@ public class UserInteractionPresenter
 
                 final int version = getDaoDbVersion();
 
-                if (version==0)
-                {
-                    Log.e("TAG", "DB version is zero");
-                    return;
-                }
+                int nextVersion = version - 1;
 
-                switch(version)
-                {
-                    case 3:
-                        DaoHelper.setDaoHelperInstanceToNull();
-                        DaoHelper.initializeDaoAndTables(activity.getApplicationContext(), new AppDaoConfigTwo(activity.getApplicationContext()));
-                        break;
-                    case 2:
-                        DaoHelper.setDaoHelperInstanceToNull();
-                        DaoHelper.initializeDaoAndTables(activity.getApplicationContext(), new AppDaoConfigOne(activity.getApplicationContext()));
-                        break;
-                }
-
-                dashboardValues();
+                executeDbVersionChange(nextVersion);
             }
         });
 
@@ -275,7 +249,36 @@ public class UserInteractionPresenter
 //        });
     }
 
-    private boolean isDbExist()
+    private void executeDbVersionChange(int nextVersion)
+    {
+        if (nextVersion>3)
+        {
+            nextVersion = 3;
+            mainActivity.showMessage("Highest DB version is 3, app will restart now");
+        }
+        else if (nextVersion<=0)
+        {
+            nextVersion = 1;
+            mainActivity.showMessage("Lowest DB version is 1, app will restart now");
+        }
+        else
+        {
+            mainActivity.showMessage("App will restart now to change the DB version");
+        }
+
+        PrefrenceUtil.setInt(activity.getApplicationContext(), C.KEY_APPDB_VERSION, nextVersion);
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run()
+            {
+                C.restartApplication(activity.getApplicationContext());
+            }
+        }, 2000);
+    }
+
+    private boolean configureDatabaseButtons()
     {
         String dbName = "";
         boolean result = false;
@@ -288,19 +291,38 @@ public class UserInteractionPresenter
                 dbExistsTv.setText(dbName);
                 result = true;
                 setDashboardTableViewsStates(true);
-                buttonStateChange(false, createDatabaseBt);
+                setButtonState(false, createDatabaseBt);
+                dashboardUiSettings();
+
             }
             else
             {
                 dbExistsTv.setText("None");
                 result = false;
                 setDashboardTableViewsStates(false);
-                buttonStateChange(true, deleteDatabaseBt);
+                setButtonState(true, createDatabaseBt);
             }
         }
         catch (Exception e)
         {
             e.printStackTrace();
+            result = false;
+        }
+
+        return result;
+    }
+
+    private boolean isDBExists() throws Exception
+    {
+        boolean result = false;
+        String dbName = getCurrentDbName().trim();
+
+        if(dbName !=null && !dbName.isEmpty())
+        {
+            result = true;
+        }
+        else
+        {
             result = false;
         }
 
@@ -354,11 +376,13 @@ public class UserInteractionPresenter
                             view.setEnabled(state);
                             if(state)
                             {
-                                ((Button) view).setTextColor(ContextCompat.getColor(activity, R.color.greendark));
+                                setButtonState(true, (Button) view);
+//                                ((Button) view).setTextColor(ContextCompat.getColor(activity, R.color.greendark));
                             }
                             else
                             {
-                                ((Button) view).setTextColor(ContextCompat.getColor(activity, R.color.greymedium));
+                                setButtonState(false, (Button) view);
+//                                ((Button) view).setTextColor(ContextCompat.getColor(activity, R.color.greymedium));
                             }
                         }
 
@@ -390,18 +414,18 @@ public class UserInteractionPresenter
             dbVersionTv.setText(String.valueOf(version));
             if (version==1)
             {
-                buttonStateChange(false, downgradeDbVersionBt);
-                buttonStateChange(true, updateDbVersionBt);
+                setButtonState(false, downgradeDbVersionBt);
+                setButtonState(true, updateDbVersionBt);
             }
             else if (version==2)
             {
-                buttonStateChange(true, downgradeDbVersionBt);
-                buttonStateChange(true, updateDbVersionBt);
+                setButtonState(true, downgradeDbVersionBt);
+                setButtonState(true, updateDbVersionBt);
             }
             else if (version==3)
             {
-                buttonStateChange(true, downgradeDbVersionBt);
-                buttonStateChange(false, updateDbVersionBt);
+                setButtonState(true, downgradeDbVersionBt);
+                setButtonState(false, updateDbVersionBt);
             }
         }
         catch (Exception e)
@@ -431,7 +455,7 @@ public class UserInteractionPresenter
         return result;
     }
 
-    private void buttonStateChange(boolean state, Button button)
+    private void setButtonState(boolean state, Button button)
     {
         if (sysBroken(activity, button))
         {
@@ -448,6 +472,11 @@ public class UserInteractionPresenter
             button.setEnabled(false);
             button.setTextColor(ContextCompat.getColor(activity, R.color.greymedium));
         }
+    }
+
+    public interface ICalls
+    {
+        public void showMessage(String msg);
     }
 }
 

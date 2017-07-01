@@ -2,6 +2,7 @@ package jagerfield.generic.ormlite;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import jagerfield.generic.ormlite.app_utils.C;
 import jagerfield.generic.ormlite.dao_config.AppDaoConfigOne;
@@ -12,7 +13,7 @@ import jagerfield.generic.ormlite.data_generators.PersonDataGen;
 import jagerfield.generic.ormlitelib.DaoHelper;
 import jagerfield.generic.ormlitelib.DaoCrud;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity implements UserInteractionPresenter.ICalls
 {
     private DaoCrud entityCrud;
     private final int amount = 100;
@@ -23,15 +24,15 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        try
-        {
-            C.dropDB(C.DB_GIVEN_NAME, getApplicationContext());
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try
+//        {
+//            C.dropDB(C.DB_GIVEN_NAME, getApplicationContext());
+//        }
+//        catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
-        DaoHelper.initializeDaoAndTables(getApplicationContext(), new AppDaoConfigOne(this));
+//        DaoHelper.initializeDaoAndTables(getApplicationContext(), new AppDaoConfigOne(this));
 
         entityCrud = DaoCrud.getInstance(this);
 
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity
         String[] list3 = this.databaseList();
 
 
-        UserInteractionPresenter userInteraction = new UserInteractionPresenter(this);
+        UserInteractionPresenter userInteraction = new UserInteractionPresenter(this, this);
 
 //        Button btnSave = (Button) findViewById(R.id.concurrentLoadBt);
 //        btnSave.setOnClickListener(new View.OnClickListener()
@@ -286,6 +287,12 @@ public class MainActivity extends AppCompatActivity
     private int dropBuildingTable(Class T) throws Exception
     {
         return DaoHelper.getInstance(this).dropTable(T, true);
+    }
+
+    @Override
+    public void showMessage(String msg)
+    {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
 

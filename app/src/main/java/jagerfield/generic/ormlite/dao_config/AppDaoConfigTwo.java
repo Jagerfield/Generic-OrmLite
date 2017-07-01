@@ -3,6 +3,7 @@ package jagerfield.generic.ormlite.dao_config;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
 import com.j256.ormlite.support.ConnectionSource;
 import java.util.HashSet;
 import java.util.Set;
@@ -61,7 +62,7 @@ public class AppDaoConfigTwo extends DaoConfiguration
         switch (oldVersion)
         {
             case 1:
-                updateFromVersionOne(database, connectionSource, oldVersion, newVersion);
+                upgradeFromVersionOne(database, connectionSource, oldVersion, newVersion);
                 break;
             default:
                 break;
@@ -71,41 +72,72 @@ public class AppDaoConfigTwo extends DaoConfiguration
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
-        switch (newVersion)
+        int result = -3;
+
+        switch (oldVersion)
         {
-            case 1:
+            case 3:
                 try
                 {
-                    int result = super.getDaoHelper(context).dropTable(Building.class, true);
-                    Log.i("TAG", "Added table 'buildings");
+                    if (DaoHelper.getInstance(context).isTableExist(Employee.class))
+                    {
+                        result = super.getDaoHelper(context).dropTable(Employee.class, true);
+                    }
+
+                    if (!DaoHelper.getInstance(context).isTableExist(Building.class))
+                    {
+                        Log.i("TAG", "Table 'emplyess' removed");
+                    }
+
+                    standardOfVersionTwo(newVersion);
                 }
                 catch (Exception e)
                 {
                     e.printStackTrace();
                 }
+
                 break;
             default:
                 break;
         }
     }
 
-    public void updateFromVersionOne(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion)
+    public void upgradeFromVersionOne(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion)
     {
         Log.i("TAG", "Upgrading DB from version 2");
 
         if (oldVersion==1)
         {
-            if(newVersion==DATABASE_VERSION)
+            standardOfVersionTwo(newVersion);
+        }
+    }
+
+    private void standardOfVersionTwo(int newVersion)
+    {
+        if(newVersion== 2)
+        {
+            try
             {
-                try
+                if (!DaoHelper.getInstance(context).isTableExist(Building.class))
                 {
                     int result1 = super.getDaoHelper(context).createTable(Building.class);
+                }
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+
+            try
+            {
+                if (DaoHelper.getInstance(context).isTableExist(Building.class))
+                {
                     Log.i("TAG", "Added table 'buildings");
                 }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
             }
         }
     }

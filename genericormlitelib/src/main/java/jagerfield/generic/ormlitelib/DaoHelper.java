@@ -7,6 +7,7 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+
 import java.util.Set;
 
 public class DaoHelper<T> extends OrmLiteSqliteOpenHelper
@@ -14,7 +15,7 @@ public class DaoHelper<T> extends OrmLiteSqliteOpenHelper
     private static DaoHelper instance;
     private static DaoConfiguration daoConfiguration;
     private static Context context;
-    private SQLiteDatabase db;
+    private static SQLiteDatabase sqLiteDatabase;
 
     private DaoHelper(Context context)
     {
@@ -27,7 +28,7 @@ public class DaoHelper<T> extends OrmLiteSqliteOpenHelper
         if (instance==null)
         {
             instance= new DaoHelper(context);
-            instance.getWritableDatabase();
+            sqLiteDatabase = instance.getWritableDatabase();
         }
 
         return instance;
@@ -45,9 +46,9 @@ public class DaoHelper<T> extends OrmLiteSqliteOpenHelper
         DaoHelper daoHelper = DaoHelper.getInstance(context);
     }
 
-    public synchronized SQLiteDatabase getDb()
+    public synchronized static SQLiteDatabase getSqLiteDatabase()
     {
-        return db;
+        return sqLiteDatabase;
     }
 
     @Override
@@ -55,7 +56,7 @@ public class DaoHelper<T> extends OrmLiteSqliteOpenHelper
     {
         super.onConfigure(db);
         db.getVersion();
-        this.db = db;
+        this.sqLiteDatabase = db;
     }
 
     @Override
@@ -71,7 +72,7 @@ public class DaoHelper<T> extends OrmLiteSqliteOpenHelper
         }
     }
 
-    public static void setDaoHelperInstanceToNull()
+    public synchronized static void setDaoHelperInstanceToNull()
     {
         instance = null;
     }
@@ -111,7 +112,7 @@ public class DaoHelper<T> extends OrmLiteSqliteOpenHelper
         return TableUtils.dropTable(getConnectionSource(), T, ignoreError);
     }
 
-    public synchronized int clearData(Context context, Class T) throws Exception
+    public synchronized int clearTableData(Context context, Class T) throws Exception
     {
         return TableUtils.clearTable(getConnectionSource(), T);
     }
@@ -172,10 +173,18 @@ public class DaoHelper<T> extends OrmLiteSqliteOpenHelper
         return super.getDatabaseName();
     }
 
-    public int getDatabaseVersion()
+    public synchronized int getDatabaseVersion()
     {
         return getWritableDatabase().getVersion();
     }
+
+//    public synchronized GenericRawResults getDbTablesList(Class T) throws Exception
+//    {
+//        Dao dao = getDaoEntity(T);
+//        GenericRawResults<String[]> results = dao.queryRaw("SELECT name FROM sqlite_master WHERE type = 'table'");
+//
+//        return results;
+//    }
 
     @Override
     public void close()

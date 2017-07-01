@@ -64,10 +64,10 @@ public class AppDaoConfigThree extends DaoConfiguration
         switch (oldVersion)
         {
             case 1:
-                updateFromVersionOne(database, connectionSource, oldVersion, newVersion);
+                upgradeFromVersionOne(database, connectionSource, oldVersion, newVersion);
                 break;
             case 2:
-                updateFromVersionTwo(database, connectionSource, oldVersion, newVersion);
+                upgradeFromVersionTwo(database, connectionSource, oldVersion, newVersion);
                 break;
             default:
                 break;
@@ -77,88 +77,66 @@ public class AppDaoConfigThree extends DaoConfiguration
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
-        switch (newVersion)
-        {
-            case 1:
-                try
-                {
-                    int result = super.getDaoHelper(context).dropTable(Building.class, true);
-                    Log.i("TAG", "Added table 'buildings");
-                    int result1 = super.getDaoHelper(context).createTable(Employee.class);
-                    Log.i("TAG", "Added table 'buildings");
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-                break;
-            case 2:
-                try
-                {
-                    int result1 = super.getDaoHelper(context).createTable(Employee.class);
-                    Log.i("TAG", "Added table 'buildings");
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-                break;
-            default:
-                break;
-        }
+
     }
 
-    public void updateFromVersionOne(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion)
+    public void upgradeFromVersionOne(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion)
     {
-        Log.i("TAG", "Upgrading DB from version 2");
-
         if (oldVersion==1)
         {
             try
             {
-                int result1 = super.getDaoHelper(context).createTable(Building.class);
-                Log.i("TAG", "Added table 'buildings");
-                int result = super.getDaoHelper(context).createTable(Employee.class);
-                Log.i("TAG", "Added table 'buildings");
+                upgradeFromOlderVersions(newVersion);
             }
             catch (Exception e)
             {
                 e.printStackTrace();
             }
         }
-
-        if (oldVersion==2)
-        {
-            try
-            {
-                int result = super.getDaoHelper(context).createTable(Employee.class);
-                Log.i("TAG", "Added table 'buildings");
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        }
-
     }
 
-    public void updateFromVersionTwo(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion)
+    public void upgradeFromVersionTwo(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion)
     {
-        Log.i("TAG", "Upgrading DB from version 2");
-
         if (oldVersion==2)
         {
             try
             {
-                int result = super.getDaoHelper(context).createTable(Employee.class);
-                Log.i("TAG", "Added table 'buildings");
+                upgradeFromOlderVersions(newVersion);
             }
             catch (Exception e)
             {
                 e.printStackTrace();
             }
         }
+    }
 
+    private void upgradeFromOlderVersions(int newVersion) throws Exception
+    {
+        int result1;
+        int result2;
+
+        if(newVersion== 3)
+        {
+            if (!DaoHelper.getInstance(context).isTableExist(Building.class))
+            {
+                result1 = super.getDaoHelper(context).createTable(Building.class);
+            }
+
+            if (!DaoHelper.getInstance(context).isTableExist(Employee.class))
+            {
+                result2 = super.getDaoHelper(context).createTable(Employee.class);
+            }
+
+            if (DaoHelper.getInstance(context).isTableExist(Building.class))
+            {
+                Log.i("TAG", "Added table 'buildings");
+            }
+
+            if (DaoHelper.getInstance(context).isTableExist(Employee.class))
+            {
+                Log.i("TAG", "Added table 'emplyees");
+            }
+        }
     }
 
 }
