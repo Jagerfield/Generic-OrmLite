@@ -1,14 +1,12 @@
 package jagerfield.generic.ormlite;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Handler;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,50 +15,60 @@ import java.util.List;
 import jagerfield.generic.ormlite.app_utils.C;
 import jagerfield.generic.ormlite.app_utils.PrefrenceUtil;
 import jagerfield.generic.ormlite.dao_config.AppDaoConfigTwo;
+import jagerfield.generic.ormlite.dashboard_activities.DBAvailabilityCheck;
+import jagerfield.generic.ormlite.dashboard_activities.ICallback;
 import jagerfield.generic.ormlitelib.DaoHelper;
 
 public class UserInteractionPresenter
 {
-    private RelativeLayout dashboard;
     private Button createDatabaseBt;
     private Button deleteDatabaseBt;
     private Button updateDbVersionBt;
     private Button downgradeDbVersionBt;
-    private Button createBuidlingsTableBt;
-    private Button deleteBuidlingsTableBt;
-    private Button loadBuidlingsTableBt;
-    private Button clearBuidlingsTableBt;
-    private Button loadPersonsTableBt;
-    private Button clearPersonsTableBt;
-    private Button loadEmployeesTableBt;
-    private Button clearEmployeesTableBt;
-    private Button concurrentListBt;
-    private Button concurrentLoadBt;
-    private Button concurrentClearBt;
-    private TextView dbExistsTv;
+    private TextView dbNameTv;
     private TextView dbVersionTv;
-    private TextView isBuildingsTableTv;
-    private TextView buildingsEntriesTv;
-    private TextView personsEntriesTv;
-    private TextView employeesEntriesTv;
-
     private Activity activity;
-    private ICalls mainActivity;
+    private Context context;
+    private ICalls iCallsMainActivity;
 
-    public UserInteractionPresenter(Activity activity, ICalls mainActivity)
+    public UserInteractionPresenter(Activity activity, ICalls iCallsMainActivity)
     {
         this.activity = activity;
-        this.mainActivity = mainActivity;
-
+        this.iCallsMainActivity = iCallsMainActivity;
+        context = activity.getApplicationContext();
         initialize();
-        configureDatabaseButtons();
-        dashboardUiSettings();
 
+        try
+        {
+            List<View> views = new ArrayList<>();
+            views.add(dbNameTv);
+            views.add(createDatabaseBt);
+
+            if (C.sysIsBroken(activity, views)) { return; }
+
+//            boolean result = DaoHelper.dropDatabase(AppDaoConfigTwo.DATABASE_NAME);
+//            DaoHelper.initializeDaoAndTables(context, );
+
+            boolean result2 = DBAvailabilityCheck.execute(activity, new ICallback() {
+                @Override
+                public void updateDashboardUi()
+                {
+                    updatedUi();
+                }
+            });
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+//        updateDashboardUi();
     }
 
-    private void dashboardUiSettings()
+    public void updatedUi()
     {
-        if (sysBroken(activity)) { return;}
+        if (C.sysIsBroken(activity)) { return;}
 
         getDaoDbVersion();
     }
@@ -68,8 +76,6 @@ public class UserInteractionPresenter
     private void initialize()
     {
         if (activity==null) { Log.e("TAG", "Activity is null"); return; }
-
-        dashboard = (RelativeLayout) activity.findViewById(R.id.dashboard);
         createDatabaseBt = (Button) activity.findViewById(R.id.createDatabaseBt);
         deleteDatabaseBt = (Button) activity.findViewById(R.id.deleteDatabaseBt);
         updateDbVersionBt = (Button) activity.findViewById(R.id.updateDbVersionBt);
@@ -85,7 +91,7 @@ public class UserInteractionPresenter
 //        concurrentListBt = (Button) activity.findViewById(R.id.concurrentListBt);
 //        concurrentLoadBt = (Button) activity.findViewById(R.id.concurrentLoadBt);
 //        concurrentClearBt = (Button) activity.findViewById(R.id.concurrentClearBt);
-        dbExistsTv = (TextView) activity.findViewById(R.id.dbNameTv);
+        dbNameTv = (TextView) activity.findViewById(R.id.dbNameTv);
         dbVersionTv = (TextView) activity.findViewById(R.id.dbVersionTv);
 //        isBuildingsTableTv = (TextView) activity.findViewById(R.id.isBuildingsTableTv);
 //        buildingsEntriesTv = (TextView) activity.findViewById(R.id.buildingsEntriesTv);
@@ -97,20 +103,28 @@ public class UserInteractionPresenter
             @Override
             public void onClick(View v)
             {
-                if (sysBroken(activity, dbVersionTv)) {
-                    return;
-                }
+                List<View> views = new ArrayList<>();
+                views.add(dbNameTv);
+                views.add(createDatabaseBt);
 
                 try
                 {
+                    if (C.sysIsBroken(activity, views)) { return; }
+
                     C.createAppDB(activity.getApplicationContext());
-                    configureDatabaseButtons();
+
+                    boolean result = DBAvailabilityCheck.execute(activity, new ICallback() {
+                        @Override
+                        public void updateDashboardUi()
+                        {
+                            updatedUi();
+                        }
+                    });
                 }
                 catch (Exception e)
                 {
                     e.printStackTrace();
                 }
-
             }
         });
 
@@ -118,11 +132,24 @@ public class UserInteractionPresenter
             @Override
             public void onClick(View v)
             {
-                if (activity==null) { Log.e("TAG", "Activity is null"); return; }
                 try
                 {
+                    List<View> views = new ArrayList<>();
+                    views.add(dbNameTv);
+                    views.add(createDatabaseBt);
+
+                    if (C.sysIsBroken(activity, views)) { return; }
+
                     boolean result = DaoHelper.dropDatabase(AppDaoConfigTwo.DATABASE_NAME);
-                    configureDatabaseButtons();
+
+                    boolean result2 = DBAvailabilityCheck.execute(activity, new ICallback() {
+                        @Override
+                        public void updateDashboardUi()
+                        {
+                            updatedUi();
+                        }
+                    });
+
                 }
                 catch (Exception e)
                 {
@@ -137,7 +164,7 @@ public class UserInteractionPresenter
             public void onClick(View v)
             {
 
-                if (sysBroken(activity)) {
+                if (C.sysIsBroken(activity)) {
                     return ;
                 }
 
@@ -159,7 +186,7 @@ public class UserInteractionPresenter
             @Override
             public void onClick(View v) {
 
-                if (sysBroken(activity, dbVersionTv)) {
+                if (C.sysIsBroken(activity, dbVersionTv)) {
                     return;
                 }
 
@@ -254,16 +281,16 @@ public class UserInteractionPresenter
         if (nextVersion>3)
         {
             nextVersion = 3;
-            mainActivity.showMessage("Highest DB version is 3, app will restart now");
+            iCallsMainActivity.showMessage("Highest DB version is 3, app will restart now");
         }
         else if (nextVersion<=0)
         {
             nextVersion = 1;
-            mainActivity.showMessage("Lowest DB version is 1, app will restart now");
+            iCallsMainActivity.showMessage("Lowest DB version is 1, app will restart now");
         }
         else
         {
-            mainActivity.showMessage("App will restart now to change the DB version");
+            iCallsMainActivity.showMessage("App will restart now to change the DB version");
         }
 
         PrefrenceUtil.setInt(activity.getApplicationContext(), C.KEY_APPDB_VERSION, nextVersion);
@@ -278,39 +305,39 @@ public class UserInteractionPresenter
         }, 2000);
     }
 
-    private boolean configureDatabaseButtons()
-    {
-        String dbName = "";
-        boolean result = false;
-
-        try
-        {
-            dbName = getCurrentDbName().trim();
-            if(dbName !=null && !dbName.isEmpty())
-            {
-                dbExistsTv.setText(dbName);
-                result = true;
-                setDashboardTableViewsStates(true);
-                setButtonState(false, createDatabaseBt);
-                dashboardUiSettings();
-
-            }
-            else
-            {
-                dbExistsTv.setText("None");
-                result = false;
-                setDashboardTableViewsStates(false);
-                setButtonState(true, createDatabaseBt);
-            }
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            result = false;
-        }
-
-        return result;
-    }
+//    private boolean configureDatabaseButtons()
+//    {
+//        String dbName = "";
+//        boolean result = false;
+//
+//        try
+//        {
+//            dbName = getCurrentDbName().trim();
+//            if(dbName !=null && !dbName.isEmpty())
+//            {
+//                dbNameTv.setText(dbName);
+//                result = true;
+//                setDashboardTableViewsStates(true);
+//                C.setButtonState(context, false, createDatabaseBt);
+//                updateDashboardUi();
+//
+//            }
+//            else
+//            {
+//                dbNameTv.setText("None");
+//                result = false;
+//                setDashboardTableViewsStates(false);
+//                C.setButtonState(context, true, createDatabaseBt);
+//            }
+//        }
+//        catch (Exception e)
+//        {
+//            e.printStackTrace();
+//            result = false;
+//        }
+//
+//        return result;
+//    }
 
     private boolean isDBExists() throws Exception
     {
@@ -347,71 +374,71 @@ public class UserInteractionPresenter
         return result;
     }
 
-    private void setDashboardTableViewsStates(boolean state) throws Exception
-    {
-        int countRows = 0;
-        try
-        {
-            TableLayout dashboardTable = (TableLayout) activity.findViewById(R.id.dashboardTable);
-
-            if (sysBroken(activity, dashboardTable)) {
-                return ;
-            }
-
-            countRows = dashboardTable.getChildCount();
-
-            for(int i=0; i < countRows; i++)
-            {
-                View rowChildView = dashboardTable.getChildAt(i);
-                int resID = rowChildView.getId();
-
-                if (rowChildView instanceof TableRow)
-                {
-                    int countViews = ((TableRow) rowChildView).getChildCount();
-                    for(int j=0; j < countViews; j++)
-                    {
-                        View view = ((TableRow) rowChildView).getChildAt(j);
-                        if (view instanceof Button)
-                        {
-                            view.setEnabled(state);
-                            if(state)
-                            {
-                                setButtonState(true, (Button) view);
-                            }
-                            else
-                            {
-                                setButtonState(false, (Button) view);
-                            }
-                        }
-                        else if (view instanceof TextView)
-                        {
-                            if(!state)
-                            {
-                                String tag = null;
-                                if (view.getTag()!=null)
-                                {
-                                    tag = view.getTag().toString();
-                                    if (tag.equals(C.TAG_DASHBOARD_TV))
-                                    {
-                                        ((TextView)view).setText("");
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-    }
+//    private void setDashboardTableViewsStates(boolean state) throws Exception
+//    {
+//        int countRows = 0;
+//        try
+//        {
+//            TableLayout dashboardTable = (TableLayout) activity.findViewById(R.id.dashboardTable);
+//
+//            if (C.sysIsBroken(activity, dashboardTable)) {
+//                return ;
+//            }
+//
+//            countRows = dashboardTable.getChildCount();
+//
+//            for(int i=0; i < countRows; i++)
+//            {
+//                View rowChildView = dashboardTable.getChildAt(i);
+//                int resID = rowChildView.getId();
+//
+//                if (rowChildView instanceof TableRow)
+//                {
+//                    int countViews = ((TableRow) rowChildView).getChildCount();
+//                    for(int j=0; j < countViews; j++)
+//                    {
+//                        View view = ((TableRow) rowChildView).getChildAt(j);
+//                        if (view instanceof Button)
+//                        {
+//                            view.setEnabled(state);
+//                            if(state)
+//                            {
+//                                C.setButtonState(context, true, (Button) view);
+//                            }
+//                            else
+//                            {
+//                                C.setButtonState(context, false, (Button) view);
+//                            }
+//                        }
+//                        else if (view instanceof TextView)
+//                        {
+//                            if(!state)
+//                            {
+//                                String tag = null;
+//                                if (view.getTag()!=null)
+//                                {
+//                                    tag = view.getTag().toString();
+//                                    if (tag.equals(C.TAG_DASHBOARD_TV))
+//                                    {
+//                                        ((TextView)view).setText("");
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        catch (Exception e)
+//        {
+//            e.printStackTrace();
+//        }
+//
+//    }
 
     private int getDaoDbVersion()
     {
-        if (sysBroken(activity, dbVersionTv)) {
+        if (C.sysIsBroken(activity, dbVersionTv)) {
             return 0;
         }
 
@@ -422,18 +449,18 @@ public class UserInteractionPresenter
             dbVersionTv.setText(String.valueOf(version));
             if (version==1)
             {
-                setButtonState(false, downgradeDbVersionBt);
-                setButtonState(true, updateDbVersionBt);
+                C.setButtonState(context, false, downgradeDbVersionBt);
+                C.setButtonState(context, true, updateDbVersionBt);
             }
             else if (version==2)
             {
-                setButtonState(true, downgradeDbVersionBt);
-                setButtonState(true, updateDbVersionBt);
+                C.setButtonState(context, true, downgradeDbVersionBt);
+                C.setButtonState(context, true, updateDbVersionBt);
             }
             else if (version==3)
             {
-                setButtonState(true, downgradeDbVersionBt);
-                setButtonState(false, updateDbVersionBt);
+                C.setButtonState(context, true, downgradeDbVersionBt);
+                C.setButtonState(context, false, updateDbVersionBt);
             }
         }
         catch (Exception e)
@@ -444,42 +471,6 @@ public class UserInteractionPresenter
         }
 
         return version;
-    }
-
-    private boolean sysBroken(Activity activity, View view)
-    {
-        boolean result = false;
-        if (activity==null) { Log.e("TAG", "Activity is null"); result = true; }
-        if (dbVersionTv==null) { Log.e("TAG", "View is null"); result = true; }
-
-        return result;
-    }
-
-    private boolean sysBroken(Activity activity)
-    {
-        boolean result = false;
-        if (activity==null) { Log.e("TAG", "Activity is null"); result = true; }
-
-        return result;
-    }
-
-    private void setButtonState(boolean state, Button button)
-    {
-        if (sysBroken(activity, button))
-        {
-            return;
-        }
-
-        if (state)
-        {
-            button.setEnabled(true);
-            button.setTextColor(ContextCompat.getColor(activity, R.color.greendark));
-        }
-        else
-        {
-            button.setEnabled(false);
-            button.setTextColor(ContextCompat.getColor(activity, R.color.greymedium));
-        }
     }
 
     public interface ICalls

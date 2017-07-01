@@ -3,10 +3,6 @@ package jagerfield.generic.ormlite;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
-
-import jagerfield.generic.ormlite.app_utils.C;
-import jagerfield.generic.ormlite.dao_config.AppDaoConfigOne;
-import jagerfield.generic.ormlite.dao_config.AppDaoConfigTwo;
 import jagerfield.generic.ormlite.data_generators.BuildingDataGen;
 import jagerfield.generic.ormlite.data_generators.EmployeeDataGen;
 import jagerfield.generic.ormlite.data_generators.PersonDataGen;
@@ -34,19 +30,19 @@ public class MainActivity extends AppCompatActivity implements UserInteractionPr
 
 //        DaoHelper.initializeDaoAndTables(getApplicationContext(), new AppDaoConfigOne(this));
 
-        entityCrud = DaoCrud.getInstance(this);
-
-        int version = DaoHelper.getInstance(this).getDatabaseVersion();
-
-        boolean isOpen = DaoHelper.getInstance(this).isOpen();
-        String dbName = DaoHelper.getInstance(this).getDatabaseName();
-
-        String[] list1 = this.databaseList();
-
-        String[] list2 = this.databaseList();
-        isOpen = DaoHelper.getInstance(this).isOpen();
-        dbName = DaoHelper.getInstance(this).getDatabaseName();
-        String[] list3 = this.databaseList();
+//        entityCrud = DaoCrud.getInstance(this);
+//
+//        int version = DaoHelper.getInstance(this).getDatabaseVersion();
+//
+//        boolean isOpen = DaoHelper.getInstance(this).isOpen();
+//        String dbName = DaoHelper.getInstance(this).getDatabaseName();
+//
+//        String[] list1 = this.databaseList();
+//
+//        String[] list2 = this.databaseList();
+//        isOpen = DaoHelper.getInstance(this).isOpen();
+//        dbName = DaoHelper.getInstance(this).getDatabaseName();
+//        String[] list3 = this.databaseList();
 
 
         UserInteractionPresenter userInteraction = new UserInteractionPresenter(this, this);
