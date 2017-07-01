@@ -17,6 +17,7 @@ public class C
     public static final String APP_PREFERENCES = "APP_PREFERENCES";
     public static final String DB_GIVEN_NAME = "OrmLiteTest.db";
     public static final String KEY_APPDB_VERSION = "KEY_APPDB_VERSION";
+    public static final String TAG_DASHBOARD_TV = "dashboard_reading";
 
     public static boolean dropDB(String dbName, Context context)  throws Exception
     {

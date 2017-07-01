@@ -30,6 +30,7 @@
         <item name="android:layout_gravity">center</item>
         <item name="android:textSize">6pt</item>
         <item name="android:textColor">@color/menublue</item>
+        <item name="android:tag">dashboard_reading</item>
     </style>
 
     <style name="button_dashboard_style" parent="@android:style/Widget.Button">

@@ -377,19 +377,27 @@ public class UserInteractionPresenter
                             if(state)
                             {
                                 setButtonState(true, (Button) view);
-//                                ((Button) view).setTextColor(ContextCompat.getColor(activity, R.color.greendark));
                             }
                             else
                             {
                                 setButtonState(false, (Button) view);
-//                                ((Button) view).setTextColor(ContextCompat.getColor(activity, R.color.greymedium));
                             }
                         }
-
-//                    if (view instanceof TextView)
-//                    {
-//                        view.setEnabled(state);
-//                    }
+                        else if (view instanceof TextView)
+                        {
+                            if(!state)
+                            {
+                                String tag = null;
+                                if (view.getTag()!=null)
+                                {
+                                    tag = view.getTag().toString();
+                                    if (tag.equals(C.TAG_DASHBOARD_TV))
+                                    {
+                                        ((TextView)view).setText("");
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
