@@ -176,6 +176,7 @@ public class Presenter
                         {
                             try
                             {
+                                iCallbackMainActivity.showMessage(msg);
                                 DashboardViewsStateService.getNewInstance().setDashboardTableViewsStates(activity, false);
                                 AppRestartService.getNewInstance().restartApplication(activity.getApplicationContext(), C.RESTART_DELAY);
                             }
@@ -209,6 +210,7 @@ public class Presenter
                         {
                             try
                             {
+                                iCallbackMainActivity.showMessage(msg);
                                 DashboardViewsStateService.getNewInstance().setDashboardTableViewsStates(activity, false);
                                 AppRestartService.getNewInstance().restartApplication(activity.getApplicationContext(), C.RESTART_DELAY);
                             }
