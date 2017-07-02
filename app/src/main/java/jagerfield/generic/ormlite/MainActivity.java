@@ -3,13 +3,15 @@ package jagerfield.generic.ormlite;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
+import jagerfield.generic.ormlite.dashboard_presenters.IInteractionCallback;
+import jagerfield.generic.ormlite.dashboard_presenters.UserInteractionPresenter;
 import jagerfield.generic.ormlite.data_generators.BuildingDataGen;
 import jagerfield.generic.ormlite.data_generators.EmployeeDataGen;
 import jagerfield.generic.ormlite.data_generators.PersonDataGen;
 import jagerfield.generic.ormlitelib.DaoHelper;
 import jagerfield.generic.ormlitelib.DaoCrud;
 
-public class MainActivity extends AppCompatActivity implements UserInteractionPresenter.ICallback
+public class MainActivity extends AppCompatActivity implements IInteractionCallback
 {
     private DaoCrud entityCrud;
     private final int amount = 100;

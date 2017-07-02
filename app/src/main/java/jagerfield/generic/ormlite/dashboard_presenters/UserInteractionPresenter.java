@@ -1,4 +1,4 @@
-package jagerfield.generic.ormlite;
+package jagerfield.generic.ormlite.dashboard_presenters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,27 +6,23 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import jagerfield.generic.ormlite.R;
 import jagerfield.generic.ormlite.app_utils.C;
+import jagerfield.generic.ormlite.app_utils.PrefrenceUtil;
 import jagerfield.generic.ormlite.dao_config.AppDaoConfigTwo;
-import jagerfield.generic.ormlite.dashboard_presenters.DbAvailabilityPresenter;
-import jagerfield.generic.ormlite.dashboard_presenters.DbVersionPresenter;
 import jagerfield.generic.ormlitelib.DaoHelper;
 
 public class UserInteractionPresenter
 {
     private Button createDatabaseBt;
-    private Button deleteDatabaseBt;
+    private Button dropDatabaseBt;
     private Button updateDbVersionBt;
     private Button downgradeDbVersionBt;
     private Activity activity;
     private Context context;
-    private ICallback iCallbackMainActivity;
+    private IInteractionCallback iCallbackMainActivity;
 
-    public UserInteractionPresenter(Activity activity, ICallback iCallbackMainActivity)
+    public UserInteractionPresenter(Activity activity, IInteractionCallback iCallbackMainActivity)
     {
         this.activity = activity;
         this.iCallbackMainActivity = iCallbackMainActivity;
@@ -35,7 +31,7 @@ public class UserInteractionPresenter
 
         try
         {
-            DbAvailabilityPresenter.execute().configureDatabaseButtons(activity, new jagerfield.generic.ormlite.dashboard_presenters.ICallback()
+            DbAvailabilityPresenter.execute().configureDatabaseButtons(activity, new IPresenterCallback()
             {   @Override
                 public void updateDashboardUi()
                 {
@@ -69,7 +65,7 @@ public class UserInteractionPresenter
     {
         if (activity==null) { Log.e("TAG", "Activity is null"); return; }
         createDatabaseBt = (Button) activity.findViewById(R.id.createDatabaseBt);
-        deleteDatabaseBt = (Button) activity.findViewById(R.id.deleteDatabaseBt);
+        dropDatabaseBt = (Button) activity.findViewById(R.id.deleteDatabaseBt);
         updateDbVersionBt = (Button) activity.findViewById(R.id.updateDbVersionBt);
         downgradeDbVersionBt = (Button) activity.findViewById(R.id.downgradeDbVersionBt);
 //        createBuidlingsTableBt = (Button) activity.findViewById(R.id.createBuidlingsTableBt);
@@ -97,7 +93,7 @@ public class UserInteractionPresenter
                 {
                     C.createAppDB(activity.getApplicationContext());
 
-                    DbAvailabilityPresenter.execute().configureDatabaseButtons(activity, new jagerfield.generic.ormlite.dashboard_presenters.ICallback() {
+                    DbAvailabilityPresenter.execute().configureDatabaseButtons(activity, new IPresenterCallback() {
                         @Override
                         public void updateDashboardUi()
                         {
@@ -112,15 +108,14 @@ public class UserInteractionPresenter
             }
         });
 
-        deleteDatabaseBt.setOnClickListener(new View.OnClickListener() {
+        dropDatabaseBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
                 try
                 {
                     boolean result = DaoHelper.dropDatabase(AppDaoConfigTwo.DATABASE_NAME);
-
-                    DbAvailabilityPresenter.execute().configureDatabaseButtons(activity, new jagerfield.generic.ormlite.dashboard_presenters.ICallback() {
+                    DbAvailabilityPresenter.execute().configureDatabaseButtons(activity, new IPresenterCallback() {
                         @Override
                         public void updateDashboardUi()
                         {
@@ -245,10 +240,6 @@ public class UserInteractionPresenter
 //        });
     }
 
-    public interface ICallback
-    {
-        public void showMessage(String msg);
-    }
 }
 
 

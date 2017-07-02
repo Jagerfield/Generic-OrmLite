@@ -6,11 +6,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.Button;
 import android.widget.TextView;
-
 import java.lang.ref.WeakReference;
-
 import jagerfield.generic.ormlite.R;
-import jagerfield.generic.ormlite.UserInteractionPresenter;
 import jagerfield.generic.ormlite.app_utils.C;
 import jagerfield.generic.ormlite.app_utils.PrefrenceUtil;
 import jagerfield.generic.ormlitelib.DaoHelper;
@@ -31,33 +28,33 @@ public class DbVersionPresenter
         return new DbVersionPresenter(activity);
     }
 
-    public void upgrade(UserInteractionPresenter.ICallback iCallbackMainActivity) throws Exception
+    public void upgrade(IInteractionCallback iInteractionCallbackMainActivity) throws Exception
     {
         int nextVersion = getDaoDbVersion() + 1;
-        changeDbVersion(nextVersion, iCallbackMainActivity);
+        changeDbVersion(nextVersion, iInteractionCallbackMainActivity);
     }
 
-    public void downgrade(UserInteractionPresenter.ICallback iCallbackMainActivity) throws Exception
+    public void downgrade(IInteractionCallback iInteractionCallbackMainActivity) throws Exception
     {
         int nextVersion = getDaoDbVersion() - 1;
-        changeDbVersion(nextVersion, iCallbackMainActivity);
+        changeDbVersion(nextVersion, iInteractionCallbackMainActivity);
     }
 
-    public void changeDbVersion(int nextVersion, UserInteractionPresenter.ICallback iCallbackMainActivity) throws Exception
+    public void changeDbVersion(int nextVersion, IInteractionCallback iInteractionCallbackMainActivity) throws Exception
     {
         if (nextVersion>3)
         {
             nextVersion = 3;
-            iCallbackMainActivity.showMessage("Highest DB version is 3, app will restart now");
+            iInteractionCallbackMainActivity.showMessage("Highest DB version is 3, app will restart now");
         }
         else if (nextVersion<=0)
         {
             nextVersion = 1;
-            iCallbackMainActivity.showMessage("Lowest DB version is 1, app will restart now");
+            iInteractionCallbackMainActivity.showMessage("Lowest DB version is 1, app will restart now");
         }
         else
         {
-            iCallbackMainActivity.showMessage("App will restart now to change the DB version");
+            iInteractionCallbackMainActivity.showMessage("App will restart now to change the DB version");
         }
 
         PrefrenceUtil.setInt(context, C.APPDB_VERSION_KEY, nextVersion);
@@ -117,14 +114,6 @@ public class DbVersionPresenter
                 C.restartApplication(con);
             }
         }, 2000);
-    }
-
-    public static class AgumentsPackage
-    {
-        private Context context;
-        private UserInteractionPresenter.ICallback iCallbackMainActivity;
-        private int nextVersion;
-
     }
 
 //    private final MyHandler mHandler = new MyHandler(this);

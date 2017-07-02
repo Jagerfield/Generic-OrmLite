@@ -1,7 +1,7 @@
 package jagerfield.generic.ormlite.dashboard_presenters;
 
 
-public interface ICallback
+public interface IPresenterCallback
 {
     void updateDashboardUi();
 }

@@ -24,7 +24,7 @@ public class DbAvailabilityPresenter
         return new DbAvailabilityPresenter();
     }
 
-    public boolean configureDatabaseButtons(Activity activity, ICallback iCallback) throws Exception
+    public boolean configureDatabaseButtons(Activity activity, IPresenterCallback iPresenterCallback) throws Exception
     {
         String dbName = "";
         boolean result = false;
@@ -43,7 +43,7 @@ public class DbAvailabilityPresenter
                 result = true;
                 setDashboardTableViewsStates(context, true, dashboardTable);
                 setButtonState(context, false, createDatabaseBt);
-                iCallback.updateDashboardUi();
+                iPresenterCallback.updateDashboardUi();
             }
             else
             {
