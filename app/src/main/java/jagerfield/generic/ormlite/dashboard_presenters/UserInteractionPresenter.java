@@ -8,8 +8,11 @@ import android.widget.Button;
 
 import jagerfield.generic.ormlite.R;
 import jagerfield.generic.ormlite.app_utils.C;
-import jagerfield.generic.ormlite.app_utils.PrefrenceUtil;
 import jagerfield.generic.ormlite.dao_config.AppDaoConfigTwo;
+import jagerfield.generic.ormlite.dashboard_presenters.services.AppRestartService;
+import jagerfield.generic.ormlite.dashboard_presenters.services.DbAvailabilityService;
+import jagerfield.generic.ormlite.dashboard_presenters.services.DbVersionService;
+import jagerfield.generic.ormlite.dashboard_presenters.services.IServiceCallback;
 import jagerfield.generic.ormlitelib.DaoHelper;
 
 public class UserInteractionPresenter
@@ -31,9 +34,9 @@ public class UserInteractionPresenter
 
         try
         {
-            DbAvailabilityPresenter.execute().configureDatabaseButtons(activity, new IPresenterCallback()
+            DbAvailabilityService.getNewInstance().configureDatabaseButtons(activity, new IServiceCallback()
             {   @Override
-                public void updateDashboardUi()
+                public void onServiceComplete(String msg)
                 {
                     updatedUi();
                 }
@@ -53,7 +56,7 @@ public class UserInteractionPresenter
 
         try
         {
-            DbVersionPresenter.execute(activity).getDaoDbVersion();
+            DbVersionService.getNewInstance().adjustButtonsStates(activity);
         }
         catch (Exception e)
         {
@@ -63,7 +66,11 @@ public class UserInteractionPresenter
 
     private void initialize()
     {
-        if (activity==null) { Log.e("TAG", "Activity is null"); return; }
+        if (C.sysIsBroken(activity))
+        {
+            throw new IllegalArgumentException("Activity is null");
+        }
+
         createDatabaseBt = (Button) activity.findViewById(R.id.createDatabaseBt);
         dropDatabaseBt = (Button) activity.findViewById(R.id.deleteDatabaseBt);
         updateDbVersionBt = (Button) activity.findViewById(R.id.updateDbVersionBt);
@@ -91,11 +98,16 @@ public class UserInteractionPresenter
             {
                 try
                 {
-                    C.createAppDB(activity.getApplicationContext());
+                    if (C.sysIsBroken(context))
+                    {
+                        throw new IllegalArgumentException("Activity is null");
+                    }
 
-                    DbAvailabilityPresenter.execute().configureDatabaseButtons(activity, new IPresenterCallback() {
+                    C.createAppDB(context);
+
+                    DbAvailabilityService.getNewInstance().configureDatabaseButtons(activity, new IServiceCallback() {
                         @Override
-                        public void updateDashboardUi()
+                        public void onServiceComplete(String msg)
                         {
                             updatedUi();
                         }
@@ -114,10 +126,15 @@ public class UserInteractionPresenter
             {
                 try
                 {
+                    if (C.sysIsBroken(activity))
+                    {
+                        throw new IllegalArgumentException("Activity is null");
+                    }
+
                     boolean result = DaoHelper.dropDatabase(AppDaoConfigTwo.DATABASE_NAME);
-                    DbAvailabilityPresenter.execute().configureDatabaseButtons(activity, new IPresenterCallback() {
+                    DbAvailabilityService.getNewInstance().configureDatabaseButtons(activity, new IServiceCallback() {
                         @Override
-                        public void updateDashboardUi()
+                        public void onServiceComplete(String msg)
                         {
                             updatedUi();
                         }
@@ -138,7 +155,19 @@ public class UserInteractionPresenter
             {
                 try
                 {
-                    DbVersionPresenter.execute(activity).upgrade(iCallbackMainActivity);
+                    DbVersionService.getNewInstance().upgrade(activity, new IServiceCallback() {
+                        @Override
+                        public void onServiceComplete(String msg)
+                        {
+                            try
+                            {
+                                AppRestartService.getNewInstance().restartApplication(activity.getApplicationContext(), 3000);
+                            }
+                            catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
                 }
                 catch (Exception e)
                 {
@@ -153,7 +182,19 @@ public class UserInteractionPresenter
             {
                 try
                 {
-                    DbVersionPresenter.execute(activity).downgrade(iCallbackMainActivity);
+                    DbVersionService.getNewInstance().downgrade(activity, new IServiceCallback() {
+                        @Override
+                        public void onServiceComplete(String msg)
+                        {
+                            try
+                            {
+                                AppRestartService.getNewInstance().restartApplication(activity.getApplicationContext(), 3000);
+                            }
+                            catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
                 }
                 catch (Exception e)
                 {

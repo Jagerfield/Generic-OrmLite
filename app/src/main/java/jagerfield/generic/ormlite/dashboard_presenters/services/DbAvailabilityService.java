@@ -1,4 +1,4 @@
-package jagerfield.generic.ormlite.dashboard_presenters;
+package jagerfield.generic.ormlite.dashboard_presenters.services;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,18 +14,23 @@ import java.util.List;
 import jagerfield.generic.ormlite.R;
 import jagerfield.generic.ormlite.app_utils.C;
 
-public class DbAvailabilityPresenter
+public class DbAvailabilityService
 {
-    public DbAvailabilityPresenter()
+    public DbAvailabilityService()
     { }
     
-    public static DbAvailabilityPresenter execute() throws Exception
+    public static DbAvailabilityService getNewInstance() throws Exception
     {
-        return new DbAvailabilityPresenter();
+        return new DbAvailabilityService();
     }
 
-    public boolean configureDatabaseButtons(Activity activity, IPresenterCallback iPresenterCallback) throws Exception
+    public boolean configureDatabaseButtons(Activity activity, IServiceCallback iServiceCallback) throws Exception
     {
+        if (C.sysIsBroken(activity))
+        {
+            throw new IllegalArgumentException("Activity is null");
+        }
+
         String dbName = "";
         boolean result = false;
         Context context = activity.getApplicationContext();
@@ -43,7 +48,7 @@ public class DbAvailabilityPresenter
                 result = true;
                 setDashboardTableViewsStates(context, true, dashboardTable);
                 setButtonState(context, false, createDatabaseBt);
-                iPresenterCallback.updateDashboardUi();
+                iServiceCallback.onServiceComplete("");
             }
             else
             {
@@ -64,6 +69,11 @@ public class DbAvailabilityPresenter
 
     public boolean isDBExists(Context context) throws Exception
     {
+        if (C.sysIsBroken(context))
+        {
+            throw new IllegalArgumentException("Activity is null");
+        }
+
         boolean result = false;
         String dbName = getCurrentDbName(context).trim();
 
@@ -81,6 +91,11 @@ public class DbAvailabilityPresenter
 
     public String getCurrentDbName(Context context) throws Exception
     {
+        if (C.sysIsBroken(context))
+        {
+            throw new IllegalArgumentException("Activity is null");
+        }
+
         String result = "";
         String[] array = context.databaseList();
         List<String> list = new ArrayList<>(Arrays.asList(array));

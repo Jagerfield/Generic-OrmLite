@@ -50,7 +50,15 @@ public class C
 
     public static void createAppDB(Context context)
     {
-        final int dbVersion = PrefrenceUtil.getInt(context, C.APPDB_VERSION_KEY, 1);
+        int version = PrefrenceUtil.getInt(context, C.APPDB_VERSION_KEY, 0);
+
+        if (version == 0)
+        {
+            version = 1;
+            PrefrenceUtil.setInt(context, C.APPDB_VERSION_KEY, version);
+        }
+
+        final int dbVersion = version;
 
         switch (dbVersion)
         {
