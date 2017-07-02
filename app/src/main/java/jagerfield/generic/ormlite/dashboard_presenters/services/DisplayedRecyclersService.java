@@ -3,21 +3,20 @@ package jagerfield.generic.ormlite.dashboard_presenters.services;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
-import android.widget.LinearLayout;
 
 import jagerfield.generic.ormlite.R;
 import jagerfield.generic.ormlite.app_utils.C;
 
-public class DisplayedTablesService
+public class DisplayedRecyclersService
 {
-    public DisplayedTablesService()
+    public DisplayedRecyclersService()
     {
 
     }
 
-    public DisplayedTablesService getNewInstance()
+    public DisplayedRecyclersService getNewInstance()
     {
-        return new DisplayedTablesService();
+        return new DisplayedRecyclersService();
     }
 
     public void adjustRecyclersLayout(Activity activity) throws Exception

@@ -35,9 +35,10 @@ public class DbAvailabilityService
         boolean result = false;
         Context context = activity.getApplicationContext();
 
-        TableLayout dashboardTable = (TableLayout) activity.findViewById(R.id.dashboardTable);
         TextView dbNameTv = (TextView) activity.findViewById(R.id.dbNameTv);
         Button createDatabaseBt = (Button) activity.findViewById(R.id.createDatabaseBt);
+
+        DashboardViewsStateService obj = DashboardViewsStateService.getNewInstance();
 
         try
         {
@@ -46,16 +47,16 @@ public class DbAvailabilityService
             {
                 dbNameTv.setText(dbName);
                 result = true;
-                setDashboardTableViewsStates(context, true, dashboardTable);
-                setButtonState(context, false, createDatabaseBt);
+                obj.setDashboardTableViewsStates(activity, true);
+                obj.setButtonState(context, false, createDatabaseBt);
                 iServiceCallback.onServiceComplete("");
             }
             else
             {
                 dbNameTv.setText("None");
                 result = false;
-                setDashboardTableViewsStates(context, false, dashboardTable);
-                setButtonState(context, true, createDatabaseBt);
+                obj.setDashboardTableViewsStates(activity, false);
+                obj.setButtonState(context, true, createDatabaseBt);
             }
         }
         catch (Exception e)
@@ -112,82 +113,4 @@ public class DbAvailabilityService
         return result;
     }
 
-    private void setDashboardTableViewsStates(Context context, boolean state, TableLayout dashboardTable) throws Exception
-    {
-        int countRows = 0;
-        try
-        {
-            if (C.sysIsBroken(context, dashboardTable)) {
-                return ;
-            }
-
-            countRows = dashboardTable.getChildCount();
-
-            for(int i=0; i < countRows; i++)
-            {
-                View rowChildView = dashboardTable.getChildAt(i);
-                int resID = rowChildView.getId();
-
-                if (rowChildView instanceof TableRow)
-                {
-                    int countViews = ((TableRow) rowChildView).getChildCount();
-                    for(int j=0; j < countViews; j++)
-                    {
-                        View view = ((TableRow) rowChildView).getChildAt(j);
-                        if (view instanceof Button)
-                        {
-                            view.setEnabled(state);
-                            if(state)
-                            {
-                                setButtonState(context, true, (Button) view);
-                            }
-                            else
-                            {
-                                setButtonState(context,false, (Button) view);
-                            }
-                        }
-                        else if (view instanceof TextView)
-                        {
-                            if(!state)
-                            {
-                                String tag = null;
-                                if (view.getTag()!=null)
-                                {
-                                    tag = view.getTag().toString();
-                                    if (tag.equals(C.TAG_DASHBOARD_TV))
-                                    {
-                                        ((TextView)view).setText("");
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-    }
-
-    private void setButtonState(Context context, boolean state, Button button)
-    {
-        if (C.sysIsBroken(context, button))
-        {
-            return;
-        }
-
-        if (state)
-        {
-            button.setEnabled(true);
-            button.setTextColor(ContextCompat.getColor(context, R.color.greendark));
-        }
-        else
-        {
-            button.setEnabled(false);
-            button.setTextColor(ContextCompat.getColor(context, R.color.greymedium));
-        }
-    }
 }

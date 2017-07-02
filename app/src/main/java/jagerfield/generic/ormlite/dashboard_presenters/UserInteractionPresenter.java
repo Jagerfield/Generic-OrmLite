@@ -10,6 +10,7 @@ import jagerfield.generic.ormlite.R;
 import jagerfield.generic.ormlite.app_utils.C;
 import jagerfield.generic.ormlite.dao_config.AppDaoConfigTwo;
 import jagerfield.generic.ormlite.dashboard_presenters.services.AppRestartService;
+import jagerfield.generic.ormlite.dashboard_presenters.services.DashboardViewsStateService;
 import jagerfield.generic.ormlite.dashboard_presenters.services.DbAvailabilityService;
 import jagerfield.generic.ormlite.dashboard_presenters.services.DbVersionService;
 import jagerfield.generic.ormlite.dashboard_presenters.services.IServiceCallback;
@@ -161,7 +162,8 @@ public class UserInteractionPresenter
                         {
                             try
                             {
-                                AppRestartService.getNewInstance().restartApplication(activity.getApplicationContext(), 3000);
+                                DashboardViewsStateService.getNewInstance().setDashboardTableViewsStates(activity, false);
+                                AppRestartService.getNewInstance().restartApplication(activity.getApplicationContext(), C.RESTART_DELAY);
                             }
                             catch (Exception e) {
                                 e.printStackTrace();
@@ -188,7 +190,8 @@ public class UserInteractionPresenter
                         {
                             try
                             {
-                                AppRestartService.getNewInstance().restartApplication(activity.getApplicationContext(), 3000);
+                                DashboardViewsStateService.getNewInstance().setDashboardTableViewsStates(activity, false);
+                                AppRestartService.getNewInstance().restartApplication(activity.getApplicationContext(), C.RESTART_DELAY);
                             }
                             catch (Exception e) {
                                 e.printStackTrace();

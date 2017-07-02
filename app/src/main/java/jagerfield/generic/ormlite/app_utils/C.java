@@ -9,9 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
 import java.util.List;
-
 import jagerfield.generic.ormlite.MainActivity;
 import jagerfield.generic.ormlite.R;
 import jagerfield.generic.ormlite.dao_config.AppDaoConfigOne;
@@ -26,6 +24,7 @@ public class C
     public static final String DB_GIVEN_NAME = "OrmLiteTest.db";
     public static final String APPDB_VERSION_KEY = "APPDB_VERSION_KEY";
     public static final String TAG_DASHBOARD_TV = "dashboard_reading";
+    public static final int RESTART_DELAY = 4000;
 
     public static boolean dropDB(String dbName, Context context)  throws Exception
     {
