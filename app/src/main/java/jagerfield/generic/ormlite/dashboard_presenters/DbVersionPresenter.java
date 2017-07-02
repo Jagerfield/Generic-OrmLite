@@ -31,6 +31,18 @@ public class DbVersionPresenter
         return new DbVersionPresenter(activity);
     }
 
+    public void upgrade(UserInteractionPresenter.ICallback iCallbackMainActivity) throws Exception
+    {
+        int nextVersion = getDaoDbVersion() + 1;
+        changeDbVersion(nextVersion, iCallbackMainActivity);
+    }
+
+    public void downgrade(UserInteractionPresenter.ICallback iCallbackMainActivity) throws Exception
+    {
+        int nextVersion = getDaoDbVersion() - 1;
+        changeDbVersion(nextVersion, iCallbackMainActivity);
+    }
+
     public void changeDbVersion(int nextVersion, UserInteractionPresenter.ICallback iCallbackMainActivity) throws Exception
     {
         if (nextVersion>3)

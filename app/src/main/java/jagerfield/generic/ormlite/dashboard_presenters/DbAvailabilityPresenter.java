@@ -16,45 +16,23 @@ import jagerfield.generic.ormlite.app_utils.C;
 
 public class DbAvailabilityPresenter
 {
-    private ICallback iCallback;
-
-    public DbAvailabilityPresenter(Activity activity, TextView dbNameTv, Button createDatabaseBt, TableLayout dashboardTable, ICallback iCallback)
-    {
-        this.iCallback = iCallback;
-        Context context = activity.getApplicationContext();
-        configureDatabaseButtons(context, dbNameTv, createDatabaseBt, dashboardTable);
-    }
+    public DbAvailabilityPresenter()
+    { }
     
-    public static boolean execute(Activity activity, ICallback iCallback) throws Exception
+    public static DbAvailabilityPresenter execute() throws Exception
     {
-        boolean result = false;
+        return new DbAvailabilityPresenter();
+    }
 
-        if (C.sysIsBroken(activity))
-        {
-            throw new IllegalArgumentException("Activity is null");
-        }
+    public boolean configureDatabaseButtons(Activity activity, ICallback iCallback) throws Exception
+    {
+        String dbName = "";
+        boolean result = false;
+        Context context = activity.getApplicationContext();
 
         TableLayout dashboardTable = (TableLayout) activity.findViewById(R.id.dashboardTable);
         TextView dbNameTv = (TextView) activity.findViewById(R.id.dbNameTv);
         Button createDatabaseBt = (Button) activity.findViewById(R.id.createDatabaseBt);
-
-        List<View> views = new ArrayList<>();
-        views.add(dbNameTv);
-        views.add(createDatabaseBt);
-
-        if (C.sysIsBroken(activity, views)) { throw new IllegalArgumentException("Views is null"); }
-
-        new DbAvailabilityPresenter(activity, dbNameTv, createDatabaseBt, dashboardTable, iCallback);
-
-        result = true;
-
-        return result;
-    }
-
-    private boolean configureDatabaseButtons(Context context, TextView dbNameTv, Button createDatabaseBt, TableLayout dashboardTable)
-    {
-        String dbName = "";
-        boolean result = false;
 
         try
         {
@@ -84,7 +62,7 @@ public class DbAvailabilityPresenter
         return result;
     }
 
-    private boolean isDBExists(Context context) throws Exception
+    public boolean isDBExists(Context context) throws Exception
     {
         boolean result = false;
         String dbName = getCurrentDbName(context).trim();
@@ -101,7 +79,7 @@ public class DbAvailabilityPresenter
         return result;
     }
 
-    private String getCurrentDbName(Context context) throws Exception
+    public String getCurrentDbName(Context context) throws Exception
     {
         String result = "";
         String[] array = context.databaseList();

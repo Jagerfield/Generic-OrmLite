@@ -35,8 +35,8 @@ public class UserInteractionPresenter
 
         try
         {
-            boolean result2 = DbAvailabilityPresenter.execute(activity, new jagerfield.generic.ormlite.dashboard_presenters.ICallback() {
-                @Override
+            DbAvailabilityPresenter.execute().configureDatabaseButtons(activity, new jagerfield.generic.ormlite.dashboard_presenters.ICallback()
+            {   @Override
                 public void updateDashboardUi()
                 {
                     updatedUi();
@@ -97,7 +97,7 @@ public class UserInteractionPresenter
                 {
                     C.createAppDB(activity.getApplicationContext());
 
-                    boolean result = DbAvailabilityPresenter.execute(activity, new jagerfield.generic.ormlite.dashboard_presenters.ICallback() {
+                    DbAvailabilityPresenter.execute().configureDatabaseButtons(activity, new jagerfield.generic.ormlite.dashboard_presenters.ICallback() {
                         @Override
                         public void updateDashboardUi()
                         {
@@ -120,7 +120,7 @@ public class UserInteractionPresenter
                 {
                     boolean result = DaoHelper.dropDatabase(AppDaoConfigTwo.DATABASE_NAME);
 
-                    boolean result2 = DbAvailabilityPresenter.execute(activity, new jagerfield.generic.ormlite.dashboard_presenters.ICallback() {
+                    DbAvailabilityPresenter.execute().configureDatabaseButtons(activity, new jagerfield.generic.ormlite.dashboard_presenters.ICallback() {
                         @Override
                         public void updateDashboardUi()
                         {
@@ -141,60 +141,24 @@ public class UserInteractionPresenter
             @Override
             public void onClick(View v)
             {
-
-                if (C.sysIsBroken(activity)) {
-                    return ;
-                }
-
-                int version = 0;
-
                 try
                 {
-                    version = DbVersionPresenter.execute(activity).getDaoDbVersion();
+                    DbVersionPresenter.execute(activity).upgrade(iCallbackMainActivity);
                 }
                 catch (Exception e)
                 {
                     e.printStackTrace();
                 }
-
-                int nextVersion = version + 1;
-
-                try
-                {
-                    DbVersionPresenter.execute(activity).changeDbVersion(nextVersion, iCallbackMainActivity);
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-
             }
         });
 
         downgradeDbVersionBt.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
-                if (C.sysIsBroken(activity)) {
-                    return;
-                }
-
-                int version = 0;
-
+            public void onClick(View v)
+            {
                 try
                 {
-                    version = DbVersionPresenter.execute(activity).getDaoDbVersion();
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-
-                int nextVersion = version - 1;
-
-                try
-                {
-                    DbVersionPresenter.execute(activity).changeDbVersion(nextVersion, iCallbackMainActivity);
+                    DbVersionPresenter.execute(activity).downgrade(iCallbackMainActivity);
                 }
                 catch (Exception e)
                 {
@@ -279,41 +243,6 @@ public class UserInteractionPresenter
 //
 //            }
 //        });
-    }
-
-    private boolean isDBExists() throws Exception
-    {
-        boolean result = false;
-        String dbName = getCurrentDbName().trim();
-
-        if(dbName !=null && !dbName.isEmpty())
-        {
-            result = true;
-        }
-        else
-        {
-            result = false;
-        }
-
-        return result;
-    }
-
-    private String getCurrentDbName() throws Exception
-    {
-        String result = "";
-        String[] array = activity.databaseList();
-        List<String> list = new ArrayList<>(Arrays.asList(array));
-        for (String dbName: list)
-        {
-            boolean b = dbName.endsWith(".db");
-            if (b)
-            {
-                result = dbName;
-                break;
-            }
-        }
-
-        return result;
     }
 
     public interface ICallback
