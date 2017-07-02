@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 import jagerfield.generic.ormlite.dashboard_presenters.IInteractionCallback;
-import jagerfield.generic.ormlite.dashboard_presenters.UserInteractionPresenter;
+import jagerfield.generic.ormlite.dashboard_presenters.Presenter;
 import jagerfield.generic.ormlite.data_generators.BuildingDataGen;
 import jagerfield.generic.ormlite.data_generators.EmployeeDataGen;
 import jagerfield.generic.ormlite.data_generators.PersonDataGen;
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements IInteractionCallb
 //        String[] list3 = this.databaseList();
 
 
-        UserInteractionPresenter userInteraction = new UserInteractionPresenter(this, this);
+        Presenter userInteraction = Presenter.getNewInstance(this, this);
 
 //        Button btnSave = (Button) findViewById(R.id.concurrentLoadBt);
 //        btnSave.setOnClickListener(new View.OnClickListener()

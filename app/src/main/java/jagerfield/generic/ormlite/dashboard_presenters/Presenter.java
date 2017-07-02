@@ -2,7 +2,6 @@ package jagerfield.generic.ormlite.dashboard_presenters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -16,7 +15,7 @@ import jagerfield.generic.ormlite.dashboard_presenters.services.DbVersionService
 import jagerfield.generic.ormlite.dashboard_presenters.services.IServiceCallback;
 import jagerfield.generic.ormlitelib.DaoHelper;
 
-public class UserInteractionPresenter
+public class Presenter
 {
     private Button createDatabaseBt;
     private Button dropDatabaseBt;
@@ -26,7 +25,7 @@ public class UserInteractionPresenter
     private Context context;
     private IInteractionCallback iCallbackMainActivity;
 
-    public UserInteractionPresenter(Activity activity, IInteractionCallback iCallbackMainActivity)
+    public Presenter(Activity activity, IInteractionCallback iCallbackMainActivity)
     {
         this.activity = activity;
         this.iCallbackMainActivity = iCallbackMainActivity;
@@ -49,6 +48,16 @@ public class UserInteractionPresenter
             e.printStackTrace();
         }
 
+    }
+
+    public static Presenter getNewInstance(Activity activity, IInteractionCallback iCallbackMainActivity)
+    {
+        if (C.sysIsBroken(activity))
+        {
+            return null;
+        }
+
+        return new Presenter(activity, iCallbackMainActivity);
     }
 
     public void updatedUi()
@@ -129,7 +138,7 @@ public class UserInteractionPresenter
                 {
                     if (C.sysIsBroken(activity))
                     {
-                        throw new IllegalArgumentException("Activity is null");
+                        return;
                     }
 
                     boolean result = DaoHelper.dropDatabase(AppDaoConfigTwo.DATABASE_NAME);
@@ -156,6 +165,11 @@ public class UserInteractionPresenter
             {
                 try
                 {
+                    if (C.sysIsBroken(activity))
+                    {
+                        return;
+                    }
+
                     DbVersionService.getNewInstance().upgrade(activity, new IServiceCallback() {
                         @Override
                         public void onServiceComplete(String msg)
@@ -184,6 +198,11 @@ public class UserInteractionPresenter
             {
                 try
                 {
+                    if (C.sysIsBroken(activity))
+                    {
+                        return;
+                    }
+
                     DbVersionService.getNewInstance().downgrade(activity, new IServiceCallback() {
                         @Override
                         public void onServiceComplete(String msg)
