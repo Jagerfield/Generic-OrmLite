@@ -1,4 +1,4 @@
-package jagerfield.generic.ormlite.dashboard_activities;
+package jagerfield.generic.ormlite.dashboard_presenters;
 
 
 public interface ICallback

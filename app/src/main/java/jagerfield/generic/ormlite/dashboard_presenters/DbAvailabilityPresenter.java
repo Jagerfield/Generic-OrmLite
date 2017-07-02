@@ -1,4 +1,4 @@
-package jagerfield.generic.ormlite.dashboard_activities;
+package jagerfield.generic.ormlite.dashboard_presenters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,11 +14,11 @@ import java.util.List;
 import jagerfield.generic.ormlite.R;
 import jagerfield.generic.ormlite.app_utils.C;
 
-public class DBAvailabilityCheck
+public class DbAvailabilityPresenter
 {
     private ICallback iCallback;
 
-    public DBAvailabilityCheck(Activity activity, TextView dbNameTv, Button createDatabaseBt, TableLayout dashboardTable, ICallback iCallback)
+    public DbAvailabilityPresenter(Activity activity, TextView dbNameTv, Button createDatabaseBt, TableLayout dashboardTable, ICallback iCallback)
     {
         this.iCallback = iCallback;
         Context context = activity.getApplicationContext();
@@ -44,7 +44,7 @@ public class DBAvailabilityCheck
 
         if (C.sysIsBroken(activity, views)) { throw new IllegalArgumentException("Views is null"); }
 
-        new DBAvailabilityCheck(activity, dbNameTv, createDatabaseBt, dashboardTable, iCallback);
+        new DbAvailabilityPresenter(activity, dbNameTv, createDatabaseBt, dashboardTable, iCallback);
 
         result = true;
 

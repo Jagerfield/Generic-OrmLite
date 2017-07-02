@@ -9,7 +9,7 @@ import jagerfield.generic.ormlite.data_generators.PersonDataGen;
 import jagerfield.generic.ormlitelib.DaoHelper;
 import jagerfield.generic.ormlitelib.DaoCrud;
 
-public class MainActivity extends AppCompatActivity implements UserInteractionPresenter.ICalls
+public class MainActivity extends AppCompatActivity implements UserInteractionPresenter.ICallback
 {
     private DaoCrud entityCrud;
     private final int amount = 100;

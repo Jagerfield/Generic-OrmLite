@@ -1,5 +1,6 @@
 package jagerfield.generic.ormlite.app_utils;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -23,7 +24,7 @@ public class C
 {
     public static final String APP_PREFERENCES = "APP_PREFERENCES";
     public static final String DB_GIVEN_NAME = "OrmLiteTest.db";
-    public static final String KEY_APPDB_VERSION = "KEY_APPDB_VERSION";
+    public static final String APPDB_VERSION_KEY = "APPDB_VERSION_KEY";
     public static final String TAG_DASHBOARD_TV = "dashboard_reading";
 
     public static boolean dropDB(String dbName, Context context)  throws Exception
@@ -37,7 +38,7 @@ public class C
         return result;
     }
 
-    public static void restartApplication(Context context)
+    public static void restartApplication(final Context context)
     {
         Intent intentRestartApp = new Intent(context, MainActivity.class);
         int intentId = 123456;
@@ -49,7 +50,7 @@ public class C
 
     public static void createAppDB(Context context)
     {
-        final int dbVersion = PrefrenceUtil.getInt(context, C.KEY_APPDB_VERSION, 1);
+        final int dbVersion = PrefrenceUtil.getInt(context, C.APPDB_VERSION_KEY, 1);
 
         switch (dbVersion)
         {
@@ -96,6 +97,14 @@ public class C
                 break;
             }
         }
+
+        return result;
+    }
+
+    public static boolean sysIsBroken(Activity activity)
+    {
+        boolean result = false;
+        if (activity==null) { Log.e("TAG", "Activity is null"); result = true; }
 
         return result;
     }
