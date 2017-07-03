@@ -25,6 +25,7 @@ public class C
     public static final String APPDB_VERSION_KEY = "APPDB_VERSION_KEY";
     public static final String TAG_DASHBOARD_TV = "dashboard_reading";
     public static final int RESTART_DELAY = 4000;
+    public static final int ENTERIES_COUNT = 100;
 
     public static boolean dropDB(String dbName, Context context)  throws Exception
     {

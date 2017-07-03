@@ -5,22 +5,22 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
+import java.io.Serializable;
 import java.util.Set;
 
 public class DaoHelper<T> extends OrmLiteSqliteOpenHelper
 {
     private static DaoHelper instance;
     private static DaoConfiguration daoConfiguration;
-    private static Context context;
     private static SQLiteDatabase sqLiteDatabase;
 
     private DaoHelper(Context context)
     {
         super(context, daoConfiguration.getConfigDatabaseName(), null, daoConfiguration.getConfigDatabaseVersion());
-        this.context = context;
     }
 
     public synchronized static DaoHelper getInstance(Context context)
@@ -32,12 +32,6 @@ public class DaoHelper<T> extends OrmLiteSqliteOpenHelper
         }
 
         return instance;
-    }
-
-    private synchronized Dao getDaoEntity(Class T) throws Exception
-    {
-        Dao dao = DaoHelper.getInstance(context).getDao(T);
-        return dao;
     }
 
     public static void initializeDaoAndTables(Context context, DaoConfiguration configManager)
@@ -77,7 +71,7 @@ public class DaoHelper<T> extends OrmLiteSqliteOpenHelper
         instance = null;
     }
 
-    public synchronized static boolean dropDatabase(String dbName)  throws Exception
+    public synchronized static boolean dropDatabase(Context context, String dbName)  throws Exception
     {
         if (dbName == null || dbName.isEmpty())
         {

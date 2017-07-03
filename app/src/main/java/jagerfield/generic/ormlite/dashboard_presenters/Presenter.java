@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.Button;
-
 import jagerfield.generic.ormlite.R;
 import jagerfield.generic.ormlite.app_utils.C;
 import jagerfield.generic.ormlite.dao_config.AppDaoConfigTwo;
@@ -13,6 +12,7 @@ import jagerfield.generic.ormlite.dashboard_presenters.services.DashboardViewsSt
 import jagerfield.generic.ormlite.dashboard_presenters.services.DbAvailabilityService;
 import jagerfield.generic.ormlite.dashboard_presenters.services.DbVersionService;
 import jagerfield.generic.ormlite.dashboard_presenters.services.IServiceCallback;
+import jagerfield.generic.ormlite.dashboard_presenters.services.RecyclersUiService;
 import jagerfield.generic.ormlitelib.DaoHelper;
 
 public class Presenter
@@ -23,14 +23,14 @@ public class Presenter
     private Button downgradeDbVersionBt;
     private Activity activity;
     private Context context;
-    private IInteractionCallback iCallbackMainActivity;
+    private ICallbackMainActivity iCallbackMainActivity;
 
-    public Presenter(Activity activity, IInteractionCallback iCallbackMainActivity)
+    public Presenter(Activity activity, ICallbackMainActivity iCallbackMainActivity)
     {
         this.activity = activity;
         this.iCallbackMainActivity = iCallbackMainActivity;
         context = activity.getApplicationContext();
-        initialize();
+        initializeViews();
 
         try
         {
@@ -38,7 +38,7 @@ public class Presenter
             {   @Override
                 public void onServiceComplete(String msg)
                 {
-                    updatedUi();
+                    initializeUi();
                 }
             });
 
@@ -50,7 +50,7 @@ public class Presenter
 
     }
 
-    public static Presenter getNewInstance(Activity activity, IInteractionCallback iCallbackMainActivity)
+    public static Presenter getNewInstance(Activity activity, ICallbackMainActivity iCallbackMainActivity)
     {
         if (C.sysIsBroken(activity))
         {
@@ -60,13 +60,14 @@ public class Presenter
         return new Presenter(activity, iCallbackMainActivity);
     }
 
-    public void updatedUi()
+    public void initializeUi()
     {
         if (C.sysIsBroken(activity)) { return;}
 
         try
         {
-            DbVersionService.getNewInstance().adjustButtonsStates(activity);
+            DbVersionService.getNewInstance().setVersionAndButtonsStates(activity);
+            RecyclersUiService.getNewInstance().loadRecyclers(activity);
         }
         catch (Exception e)
         {
@@ -74,7 +75,7 @@ public class Presenter
         }
     }
 
-    private void initialize()
+    private void initializeViews()
     {
         if (C.sysIsBroken(activity))
         {
@@ -93,7 +94,7 @@ public class Presenter
 //        clearPersonsTableBt = (Button) activity.findViewById(R.id.clearPersonsTableBt);
 //        loadEmployeesTableBt = (Button) activity.findViewById(R.id.loadEmployeesTableBt);
 //        clearEmployeesTableBt = (Button) activity.findViewById(R.id.clearEmployeesTableBt);
-//        concurrentListBt = (Button) activity.findViewById(R.id.concurrentListBt);
+
 //        concurrentLoadBt = (Button) activity.findViewById(R.id.concurrentLoadBt);
 //        concurrentClearBt = (Button) activity.findViewById(R.id.concurrentClearBt);
 
@@ -119,7 +120,14 @@ public class Presenter
                         @Override
                         public void onServiceComplete(String msg)
                         {
-                            updatedUi();
+                            try
+                            {
+                                DbVersionService.getNewInstance().setVersionAndButtonsStates(activity);
+                            }
+                            catch (Exception e)
+                            {
+                                e.printStackTrace();
+                            }
                         }
                     });
                 }
@@ -141,12 +149,19 @@ public class Presenter
                         return;
                     }
 
-                    boolean result = DaoHelper.dropDatabase(AppDaoConfigTwo.DATABASE_NAME);
+                    boolean result = DaoHelper.dropDatabase(activity.getApplicationContext(), AppDaoConfigTwo.DATABASE_NAME);
                     DbAvailabilityService.getNewInstance().configureDatabaseButtons(activity, new IServiceCallback() {
                         @Override
                         public void onServiceComplete(String msg)
                         {
-                            updatedUi();
+                            try
+                            {
+                                DbVersionService.getNewInstance().setVersionAndButtonsStates(activity);
+                            }
+                            catch (Exception e)
+                            {
+                                e.printStackTrace();
+                            }
                         }
                     });
 

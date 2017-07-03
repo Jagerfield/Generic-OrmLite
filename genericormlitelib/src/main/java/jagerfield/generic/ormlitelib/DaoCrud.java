@@ -2,6 +2,8 @@ package jagerfield.generic.ormlitelib;
 
 import android.content.Context;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.QueryBuilder;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -58,6 +60,12 @@ public class DaoCrud<T> implements ICrud<T, Serializable>
     }
 
     @Override
+    public void clearTable(Context context, Class T) throws Exception
+    {
+        DaoHelper.getInstance(context).clearTableData(context, T);
+    }
+
+    @Override
     public synchronized int add(T t) throws Exception
     {
         int i = getEntityDao(t.getClass()).create(t);
@@ -65,9 +73,17 @@ public class DaoCrud<T> implements ICrud<T, Serializable>
     }
 
     @Override
-    public synchronized com.j256.ormlite.dao.Dao.CreateOrUpdateStatus update(T t) throws Exception
+    public synchronized com.j256.ormlite.dao.Dao.CreateOrUpdateStatus update(Class t) throws Exception
     {
-        com.j256.ormlite.dao.Dao.CreateOrUpdateStatus i = getEntityDao(t.getClass()).createOrUpdate(t);
+        com.j256.ormlite.dao.Dao.CreateOrUpdateStatus i = getEntityDao(t).createOrUpdate(t);
         return i;
+    }
+
+    @Override
+    public synchronized QueryBuilder<T, Serializable> queryBuilderGeneric(Class T) throws Exception
+    {
+        QueryBuilder<T, Serializable> queryBuilder = getEntityDao(T).queryBuilder();
+
+        return queryBuilder;
     }
 }

@@ -3,15 +3,12 @@ package jagerfield.generic.ormlite;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
-import jagerfield.generic.ormlite.dashboard_presenters.IInteractionCallback;
+import jagerfield.generic.ormlite.dashboard_presenters.ICallbackMainActivity;
 import jagerfield.generic.ormlite.dashboard_presenters.Presenter;
-import jagerfield.generic.ormlite.data_generators.BuildingDataGen;
-import jagerfield.generic.ormlite.data_generators.EmployeeDataGen;
-import jagerfield.generic.ormlite.data_generators.PersonDataGen;
 import jagerfield.generic.ormlitelib.DaoHelper;
 import jagerfield.generic.ormlitelib.DaoCrud;
 
-public class MainActivity extends AppCompatActivity implements IInteractionCallback
+public class MainActivity extends AppCompatActivity implements ICallbackMainActivity
 {
     private DaoCrud entityCrud;
     private final int amount = 100;
@@ -172,12 +169,12 @@ public class MainActivity extends AppCompatActivity implements IInteractionCallb
 
     private void activateThreads()
     {
-        PersonDataGen personDataGen1 = new PersonDataGen("Luke", amount, MainActivity.this);
-        PersonDataGen personDataGen2 = new PersonDataGen("Peter", amount, MainActivity.this);
-        BuildingDataGen buildingDataGen1 = new BuildingDataGen("Building A", amount, this);
-        BuildingDataGen buildingDataGen2 = new BuildingDataGen("Building B", amount, this);
-
-        EmployeeDataGen employeeDataGen = new EmployeeDataGen(amount, this);
+//        PersonDataGen personDataGen1 = new PersonDataGen("Luke", amount, MainActivity.this);
+//        PersonDataGen personDataGen2 = new PersonDataGen("Peter", amount, MainActivity.this);
+//        BuildingTableReadWriteData buildingDataGen1 = new BuildingTableReadWriteData("Building A", amount, this);
+//        BuildingTableReadWriteData buildingDataGen2 = new BuildingTableReadWriteData("Building B", amount, this);
+//
+//        EmployeeDataGen employeeDataGen = new EmployeeDataGen(amount, this);
 
 //        new Thread(new Runnable() {
 //            @Override

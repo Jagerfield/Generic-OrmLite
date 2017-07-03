@@ -2,11 +2,9 @@ package jagerfield.generic.ormlite.dashboard_presenters.services;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
 import android.widget.Button;
 import android.widget.TextView;
-import java.lang.ref.WeakReference;
+
 import jagerfield.generic.ormlite.R;
 import jagerfield.generic.ormlite.app_utils.C;
 import jagerfield.generic.ormlite.app_utils.PrefrenceUtil;
@@ -31,7 +29,7 @@ public class DbVersionService
         {
             throw new IllegalArgumentException("Activity is null");
         }
-        int nextVersion = adjustButtonsStates(activity) + 1;
+        int nextVersion = setVersionAndButtonsStates(activity) + 1;
         changeDbVersion(activity,  nextVersion, iServiceCallback);
     }
 
@@ -41,7 +39,7 @@ public class DbVersionService
         {
             throw new IllegalArgumentException("Activity is null");
         }
-        int nextVersion = adjustButtonsStates(activity) - 1;
+        int nextVersion = setVersionAndButtonsStates(activity) - 1;
         changeDbVersion(activity, nextVersion, iServiceCallback);
     }
 
@@ -80,7 +78,7 @@ public class DbVersionService
         }
     }
 
-    public int adjustButtonsStates(Activity activity) throws Exception
+    public int setVersionAndButtonsStates(Activity activity) throws Exception
     {
         if (C.sysIsBroken(activity))
         {
@@ -95,7 +93,7 @@ public class DbVersionService
         int version = 0;
         try
         {
-            version = DaoHelper.getInstance(context).getDatabaseVersion();
+            version = getDaoDbVersion(context);
             dbVersionTv.setText(String.valueOf(version));
 
             if (version==1)
@@ -121,6 +119,13 @@ public class DbVersionService
             dbVersionTv.setText("Error");
         }
 
+        return version;
+    }
+
+    public static int getDaoDbVersion(Context context)
+        {
+        int version;
+        version = DaoHelper.getInstance(context).getDatabaseVersion();
         return version;
     }
 

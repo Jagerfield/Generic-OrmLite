@@ -24,7 +24,7 @@ public class AppRestartService
         }
 
         final Context con = context;
-        MyHandler<DbVersionService> handler = new MyHandler(this);
+        MyHandler<AppRestartService> handler = new MyHandler(this);
         handler.postDelayed(new Runnable()
         {
             @Override

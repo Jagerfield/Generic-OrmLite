@@ -64,6 +64,30 @@
 
         </TableRow>
 
+        <TableRow>
+
+            <TextView
+                style="@style/textview_dashboard_style_one"
+                android:text="Concurrents  :" />
+
+            <EditText
+                android:id="@+id/dbConcurrentTv"
+                android:text="100"
+                android:inputType="number"
+                style="@style/textview_dashboard_style_two" />
+
+            <Button
+                android:id="@+id/concurrentLoadBt"
+                style="@style/button_dashboard_style"
+                android:text="Load" />
+
+            <Button
+                android:id="@+id/concurrentClearBt"
+                style="@style/button_dashboard_style"
+                android:text="Clear" />
+
+        </TableRow>
+
         <!--<TableRow>-->
 
             <!--<TextView-->
@@ -241,50 +265,6 @@
 
         <!--</TableRow>-->
 
-        <!--<TableRow>-->
-
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="Concurrent actions :"-->
-                <!--android:gravity="left"-->
-                <!--android:textSize="6.2pt"-->
-                <!--android:layout_marginLeft="2.5dp"-->
-                <!--android:textColor="@color/greytext"-->
-                <!--android:textStyle="bold"/>-->
-
-            <!--<Button-->
-                <!--android:layout_width="70dp"-->
-                <!--android:layout_height="38dp"-->
-                <!--android:id="@+id/concurrentListBt"-->
-                <!--android:text="List"-->
-                <!--android:layout_marginLeft="4dp"-->
-                <!--android:layout_marginRight="8dp"-->
-                <!--android:textSize="12dp"-->
-                <!--android:textAllCaps="false"/>-->
-
-            <!--<Button-->
-                <!--android:layout_width="70dp"-->
-                <!--android:layout_height="38dp"-->
-                <!--android:id="@+id/concurrentLoadBt"-->
-                <!--android:text="Load"-->
-                <!--android:layout_marginLeft="3dp"-->
-                <!--android:layout_marginRight="4dp"-->
-                <!--android:textSize="12dp"-->
-                <!--android:textAllCaps="false"/>-->
-
-            <!--<Button-->
-                <!--android:layout_width="70dp"-->
-                <!--android:layout_height="38dp"-->
-                <!--android:id="@+id/concurrentClearBt"-->
-                <!--android:text="Clear"-->
-                <!--android:layout_marginLeft="4dp"-->
-                <!--android:layout_marginRight="8dp"-->
-                <!--android:textSize="12dp"-->
-                <!--android:textAllCaps="false"/>-->
-
-        <!--</TableRow>-->
-
     </TableLayout>
 
     <LinearLayout
@@ -312,6 +292,7 @@
             android:orientation="vertical"/>
 
         <TextView
+            android:id="@+id/recyclerFirst"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -327,6 +308,7 @@
             android:orientation="vertical"/>
 
         <TextView
+            android:id="@+id/recyclerSecond"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -342,6 +324,7 @@
             android:orientation="vertical"/>
 
         <TextView
+            android:id="@+id/recyclerThird"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -378,6 +361,12 @@
         android:layout_marginTop="0dp"
         android:orientation="horizontal">
 
+        <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="1dip"
+            android:background="@color/greymedium"
+            android:orientation="vertical"/>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerViewOne"
             android:layout_width="match_parent"
@@ -413,6 +402,12 @@
             android:layout_weight="1"
             android:layout_marginLeft="8dp"
            />
+
+        <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="1dip"
+            android:background="@color/greymedium"
+            android:orientation="vertical"/>
 
     </LinearLayout>
 
