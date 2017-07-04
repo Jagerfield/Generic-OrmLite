@@ -28,21 +28,20 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center</item>
-        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
         <item name="android:textSize">6pt</item>
         <item name="android:textColor">@color/menublue</item>
         <item name="android:tag">dashboard_reading</item>
     </style>
 
-    <style name="textview_dashboard_style_three" parent="@android:style/Widget.EditText">
-        <item name="android:layout_width">80dp</item>
+    <style name="textview_recycler_style" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:gravity">left</item>
+        <item name="android:layout_gravity">left</item>
+        <item name="android:layout_marginLeft">8dp</item>
         <item name="android:textSize">6pt</item>
-        <item name="android:textColor">@color/purple</item>
-        <item name="android:tag">dashboard_reading</item>
+        <item name="android:textColor">@color/blue_link</item>
     </style>
 
     <style name="button_dashboard_style" parent="@android:style/Widget.Button">

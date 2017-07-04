@@ -67,7 +67,7 @@ public class Presenter
         try
         {
             DbVersionService.getNewInstance().setVersionAndButtonsStates(activity);
-            RecyclersUiService.getNewInstance().loadRecyclers(activity);
+            RecyclersUiService.getNewInstance().loadRecyclers(activity, 100);
         }
         catch (Exception e)
         {

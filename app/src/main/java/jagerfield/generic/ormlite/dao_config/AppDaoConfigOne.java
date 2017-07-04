@@ -72,11 +72,11 @@ public class AppDaoConfigOne extends DaoConfiguration
         switch (oldVersion)
         {
             case 2:
-                downgradeToVersionOne(newVersion);
+                setDbToVersionOne();
                 break;
 
             case 3:
-                downgradeToVersionOne(newVersion);
+                setDbToVersionOne();
                 break;
 
             default:
@@ -84,51 +84,51 @@ public class AppDaoConfigOne extends DaoConfiguration
         }
     }
 
-    private void downgradeToVersionOne(int newVersion)
+    public boolean setDbToVersionOne()
     {
-        if (newVersion == 1)
+        boolean result = false;
+
+        try
         {
-            try
+            if (!DaoHelper.getInstance(context).isTableExist(Person.class))
             {
-                if (DaoHelper.getInstance(context).isTableExist(Building.class))
-                {
-                    super.getDaoHelper(context).dropTable(Building.class, true);
-                }
-
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
+                super.getDaoHelper(context).createTable(Person.class);
             }
 
-            try
+            if (DaoHelper.getInstance(context).isTableExist(Building.class))
             {
-                if (DaoHelper.getInstance(context).isTableExist(Employee.class))
-                {
-                    super.getDaoHelper(context).dropTable(Employee.class, true);
-                }
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
+                super.getDaoHelper(context).dropTable(Building.class, true);
             }
 
-            try
+            if (DaoHelper.getInstance(context).isTableExist(Employee.class))
             {
-                if (!DaoHelper.getInstance(context).isTableExist(Building.class))
-                {
-                    Log.i("TAG", "Added table 'buildings");
-                }
+                super.getDaoHelper(context).dropTable(Employee.class, true);
+            }
 
-                if (!DaoHelper.getInstance(context).isTableExist(Employee.class))
-                {
-                    Log.i("TAG", "Added table 'employees");
-                }
-            }
-            catch (Exception e)
+
+            if (!DaoHelper.getInstance(context).isTableExist(Person.class))
             {
-                e.printStackTrace();
+                throw new IllegalStateException("Persons table was not created");
             }
+
+            if (!DaoHelper.getInstance(context).isTableExist(Building.class))
+            {
+                throw new IllegalStateException("Buildings table was not created");
+            }
+
+            if (!DaoHelper.getInstance(context).isTableExist(Employee.class))
+            {
+                throw new IllegalStateException("Employees table was not created");
+            }
+
+            result = true;
         }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            result = false;
+        }
+
+        return result;
     }
 }

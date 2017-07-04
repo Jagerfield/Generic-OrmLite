@@ -10,14 +10,14 @@ import jagerfield.generic.ormlite.models.Person;
 import jagerfield.generic.ormlitelib.DaoCrud;
 import jagerfield.generic.ormlitelib.DaoHelper;
 
-public class EmployeeDataGen
+public class EmployeeTableReadWriteData
 {
-    public EmployeeDataGen(int amount, Context context)
+    public EmployeeTableReadWriteData(int amount, Context context)
     { }
 
-    public static PersonDataGen getNewInstance()
+    public static PersonTableReadWriteData getNewInstance()
     {
-        return new PersonDataGen();
+        return new PersonTableReadWriteData();
     }
 
     public void generateData(final int amount, final Context context) throws Exception
