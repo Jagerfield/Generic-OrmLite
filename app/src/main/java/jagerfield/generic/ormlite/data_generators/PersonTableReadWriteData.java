@@ -6,7 +6,6 @@ import android.util.Log;
 import com.j256.ormlite.stmt.QueryBuilder;
 import java.util.List;
 import jagerfield.generic.ormlite.app_utils.C;
-import jagerfield.generic.ormlite.models.Building;
 import jagerfield.generic.ormlite.models.Person;
 import jagerfield.generic.ormlitelib.DaoCrud;
 import jagerfield.generic.ormlitelib.DaoHelper;
@@ -48,7 +47,7 @@ public class PersonTableReadWriteData
         this.amount = amount;
         final Activity activity = activity_;
 
-        checkUp(activity);
+        checkUp(activity, Person.class);
 
         try
         {
@@ -77,10 +76,10 @@ public class PersonTableReadWriteData
 
                     try
                     {
-                        if (DaoHelper.getInstance(activity.getApplicationContext()).isTableExist(Building.class))
+                        if (DaoHelper.getInstance(activity.getApplicationContext()).isTableExist(Person.class))
                         {
                             DaoCrud.getInstance(activity.getApplicationContext()).add(person);
-                            readRow(activity, Building.IColumns.NAME_FIELD, name, 1, client);
+                            readAndPostRow(activity, Person.IColumns.NAME_FIELD, name, 1, client);
                         }
                         else
                         {
@@ -110,11 +109,11 @@ public class PersonTableReadWriteData
         }).start();
     }
 
-    public void readRow(Activity activity_, final String columnName, final String fieldValue, final long limit, final PersonTableReadWriteData.ICall client) throws Exception
+    public void readAndPostRow(Activity activity_, final String columnName, final String fieldValue, final long limit, final PersonTableReadWriteData.ICall client) throws Exception
     {
         final Activity activity = activity_;
 
-        checkUp(activity);
+        checkUp(activity, Person.class);
 
         new Thread(new Runnable()
         {
@@ -153,17 +152,17 @@ public class PersonTableReadWriteData
         }).start();
     }
 
-    private void checkUp(Context context) throws Exception
+    private void checkUp(Context context, Class T) throws Exception
     {
         if (C.sysIsBroken(context))
         {
             throw new IllegalArgumentException("Context is null");
         }
 
-        if (!DaoHelper.getInstance(context).isTableExist(Building.class))
+        if (!DaoHelper.getInstance(context).isTableExist(T))
         {
             Log.e("TAG", "Table 'Persons' is missing");
-            throw new IllegalArgumentException("'buildings' table doesn't exist");
+            throw new IllegalArgumentException("'Personss' table doesn't exist");
         }
     }
 

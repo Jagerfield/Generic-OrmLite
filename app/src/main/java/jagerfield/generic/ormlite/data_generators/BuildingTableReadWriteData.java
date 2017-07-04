@@ -79,7 +79,7 @@ public class BuildingTableReadWriteData
                         if (DaoHelper.getInstance(activity.getApplicationContext()).isTableExist(Building.class))
                         {
                             DaoCrud.getInstance(activity.getApplicationContext()).add(building);
-                            readRow(activity, Building.IColumns.NAME_FIELD, name, 1, client);
+                            readAndPostRow(activity, Building.IColumns.NAME_FIELD, name, 1, client);
                         }
                         else
                         {
@@ -109,7 +109,7 @@ public class BuildingTableReadWriteData
         }).start();
     }
 
-    public void readRow(Activity activity_, final String columnName, final String fieldValue, final long limit, final BuildingTableReadWriteData.ICall client) throws Exception
+    public void readAndPostRow(Activity activity_, final String columnName, final String fieldValue, final long limit, final BuildingTableReadWriteData.ICall client) throws Exception
     {
         final Activity activity = activity_;
 
@@ -238,7 +238,7 @@ public class BuildingTableReadWriteData
 //                        if (DaoHelper.getInstance(activity.getApplicationContext()).isTableExist(Building.class))
 //                        {
 //                            DaoCrud.getInstance(activity.getApplicationContext()).add(building);
-//                            readRow(activity, Building.IColumns.NAME_FIELD, name, 1, client);
+//                            readAndPostRow(activity, Building.IColumns.NAME_FIELD, name, 1, client);
 //                        }
 //
 //                    }
@@ -265,7 +265,7 @@ public class BuildingTableReadWriteData
 //
 //    }
 //
-//    public void readRow(Activity activity_, final String columnName, final String fieldValue, final long limit, final ICall client) throws Exception
+//    public void readAndPostRow(Activity activity_, final String columnName, final String fieldValue, final long limit, final ICall client) throws Exception
 //    {
 //        final Activity activity = activity_;
 //
